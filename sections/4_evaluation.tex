@@ -1,0 +1,62 @@
+% allocate 9 pages
+\chapter{Evaluation}
+\section{Success Criteria}
+\subsection{Core Project}
+The project will be considered a success if it achieves the following:
+\begin{itemize}
+    \item Preprocess datasets MNLI and QNLI so that they are suitable for the downstream task textual-entailment-based question answering.
+    \item Reimplement a \textbf{manual discrete prompt-based} model, which involves carefully designing several appropriate prompts manually, and then quantitatively comparing the performance of using different prompts.
+    \item Reimplement an \textbf{automated discrete prompt-based} model, which involves applying a published automated template generation method, then evaluate and compare its performance against the manual discrete prompt-based model.
+    \item Reimplement a \textbf{differential prompt-based} model and analyse its performance by comparing it with both automated and manual discrete prompt-based models.
+    \item Launch backdoor attacks onto the PLM of the three prompt-based models and evaluate the performance of each attack. Various backdoor triggers would be designed, and the effectiveness of each would be analysed. These design choices include the word choice, the length of the word, the insertion position of the triggers and the poison ratio of the dataset.
+\end{itemize}
+
+\subsection{Extensions}
+In the context of classification downstream tasks, precision-at-n could be suited to measure the performance of the prompt-based models. When a prompt-based model fills the mask token with a word, it would first rank the possible words by their probabilities, and precision-at-n is defined as the percentage of the top-n words that leads to correct classification. In this project, we will use precision-at-1 (P@1) and precision-at-10 (P@10) as metrics.
+
+For analysing the performance of the backdoor attack on each prompt-based model, the two primary metrics are:
+\begin{itemize}
+    \item Attack success rate (ASR): the percentage of the poisoned samples that the model misclassified due to the backdoor attack.
+    \item Accuracy: the proportion of samples the model can still classify correctly, which ensures that the model performs normally under scenarios where the triggers are not present.
+\end{itemize}
+\paragraph{An additional downstream task}
+ For this downstream task, a manual discrete, automated discrete and differential prompt-based model can be constructed. After launching backdoor attacks onto those prompt-based models, a case study can be carried out to compare and analyse the impacts of backdoor attacks on different downstream tasks (e.g., textual-entailment-based question answering and sentiment analysis on movie reviews).
+
+ \paragraph{Invisible backdoors using Unicode characters}
+ The backdoor attacks using nonsense words cannot preserve the semantic meaning of the sentences and are distinguishable under careful inspection. Unicode-encoded characters that are imperceptible to the human eye can be designed \cite{Boucher21}. Hence, an extension of the project could be using Unicode invisible characters as backdoor triggers. 
+
+ \paragraph{Backdooring onto the trainable prompts}
+ The published backdoor attacks inject poisoned prompts when training the PLM. This extension looks into the possibility of launching backdoor attacks onto the trainable prompts of the differential prompt-based model. 
+
+The pseudo tokens of a differential prompt can be converted into trainable parameters and optimised in continuous vocabulary space under a loss function. Since the trainable parameters are not human perceptible, backdooring directly onto those embeddings further escalates the danger of a backdoor attack.
+
+
+% \input{tables/prompt_perform}
+% \input{tables/backdoor_acc_f1}
+
+\begin{comment}
+\begin{figure*}[!ht]
+\begin{subfigure}{.33\textwidth}
+  \centering
+  \includegraphics[width=\linewidth]{figures/evaluation_media/SST2_prompting_performance.pdf}
+  \caption{SST2}
+  \label{fig:sst}
+\end{subfigure}%
+\begin{subfigure}{.33\textwidth}
+  \centering
+  \includegraphics[width=\linewidth]{figures/evaluation_media/QNLI_prompting_performance.pdf}
+  \caption{QNLI}
+  \label{fig:qnli}
+\end{subfigure}
+\begin{subfigure}{.33\textwidth}
+  \centering
+  \includegraphics[width=\linewidth]{figures/evaluation_media/ENRON-SPAM_prompting_performance.pdf}
+  \caption{ENRON-SPAM}
+  \label{fig:enron}
+\end{subfigure}
+\caption{The performance of prompting models on the dataset SST2, QNLI \cite{gluedataset2018} and ENRON-SPAM \cite{enronspam2006} for a wider range of $K$ values. The solid line plots the mean accuracy across five independent runs, and is bounded by one standard deviation on both sides.}
+\label{fig:more_k}
+\end{figure*}
+\end{comment}
+
+% \input{tables/visualise_word_embedding}

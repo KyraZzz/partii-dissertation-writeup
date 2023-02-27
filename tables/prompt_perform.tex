@@ -1,0 +1,140 @@
+\begin{table*}[!ht]
+\centering
+\adjustbox{max width=\hsize}{
+	\begin{tabular}{c | llll | llll }
+	\toprule
+	\multicolumn{1}{c}{ }                      
+	& \multicolumn{4}{c}{SST2}                      
+	& \multicolumn{4}{c}{QNLI} \\
+	$K$ 
+        & Baseline & Auto	& Diff	& Manual 
+	& Baseline & Auto	& Diff	& Manual \\
+	\midrule
+	$16$   
+	% SST2
+	& $72.1 \pm 15.0$        
+	& $70.1 \pm 3.9$           
+	& $\boldsymbol{87.8 \pm 0.7}$
+	& $\underline{86.9 \pm 1.6}$           
+
+	% QNLI 
+	& $49.9 \pm 0.2$        
+	& $53.4 \pm 1.3$           
+	& $\underline{59.5 \pm 3.6}$             
+	& $\boldsymbol{74.1 \pm 1.2}$           
+
+	\\
+	$100$  
+ 	% SST2
+	& $\boldsymbol{89.6 \pm 0.5}$             
+	& $83.5 \pm 4.3$              
+	& $88.6 \pm 0.7$            
+	& $\underline{89.4 \pm 1.0}$       
+        % QNLI
+        & $78.9 \pm 2.3$
+        & $74.0 \pm 4.3$
+        & $\underline{80.2 \pm 2.1}$
+        & $\boldsymbol{82.7 \pm 0.7}$
+        \\
+	$1000$
+        % SST2
+	& $\boldsymbol{92.7 \pm 0.2}$           
+	& $\underline{92.5 \pm 0.2}$
+        & $90.1 \pm 0.7$
+        & $92.3 \pm 0.2$
+        % QNLI
+        & $\underline{87.2 \pm 1.0}$
+        & $83.2 \pm 3.8$
+        & $85.2 \pm 1.1$
+        & $\boldsymbol{88.0 \pm 0.3}$
+        \\
+	\midrule
+	\multicolumn{1}{c}{}                      
+	& \multicolumn{4}{c}{MNLI-Matched}                      
+	& \multicolumn{4}{c}{MNLI-Mismatched} \\
+	$K$
+	& Baseline & Auto	& Diff	& Manual  
+	& Baseline & Auto	& Diff	& Manual  
+	\\
+	\midrule
+        $16$
+        % matched
+        & $33.3 \pm 0.2$
+        & $34.9 \pm 0.7$
+        & $\boldsymbol{61.4 \pm 1.5}$
+        & $\underline{60.2 \pm 3.7}$
+        % mismatched
+        & $32.8 \pm 1.3$
+        & $35.6 \pm 0.8$
+        & $\underline{59.4 \pm 1.1}$
+        & $\boldsymbol{60.2 \pm 2.7}$ \\
+        $100$
+        % matched
+        & $63.1 \pm 13.3$
+        & $42.3 \pm 0.5$
+        & $\underline{72.1 \pm 0.8}$
+        & $\boldsymbol{74.1 \pm 1.2}$
+        % mismatched
+        & $\underline{73.6 \pm 2.1}$
+        & $39.5 \pm 1.0$
+        & $73.3 \pm 1.2$
+        & $\boldsymbol{77.0 \pm 1.2}$ \\	
+        $1000$
+        % matched
+        & $\underline{82.7 \pm 0.5}$
+        & $72.9 \pm 2.3$
+        & $80.0 \pm 0.8$
+        & $\boldsymbol{83.2 \pm 0.3}$
+        % mismatched
+        & $\underline{84.3 \pm 0.5}$
+        & $76.6 \pm 3.7$
+        & $82.0 \pm 0.4$
+        & $\boldsymbol{85.0 \pm 0.2}$ \\
+        \midrule
+	\multicolumn{1}{c}{}                      
+	& \multicolumn{4}{c}{ENRON-SPAM}                      
+	& \multicolumn{4}{c}{TWEETS-HATE-OFFENSIVE} \\
+	$K$
+	& Baseline & Auto	& Diff	& Manual  
+	& Baseline & Auto	& Diff	& Manual  
+	\\
+        \midrule
+        $16$
+        % enron-spam
+        & $84.2 \pm 4.0$
+        & $80.5 \pm 2.6$
+        & $\underline{88.0 \pm 2.3}$
+        & $\boldsymbol{89.4 \pm 3.0}$
+        % tweets
+        & $\underline{38.0 \pm 4.1}$
+        & $42.5 \pm 2.6$
+        & $37.2 \pm 7.7$
+        & $\boldsymbol{46.7 \pm 2.5}$ \\
+        $100$
+        % enron-spam
+        & $\boldsymbol{97.1 \pm 0.4}$
+        & $90.8 \pm 0.4$
+        & $\underline{96.3 \pm 0.8}$
+        & $\underline{96.3 \pm 0.5}$
+        % tweets
+        & $44.9 \pm 0.9$
+        & $\underline{51.4 \pm 3.4}$
+        & $\boldsymbol{59.7 \pm 2.8}$
+        & $47.0 \pm 0.8$ \\	
+        $1000$
+        % enron-spam
+        & $98.0 \pm 0.5$
+        & $97.0 \pm 0.7$
+        & $\boldsymbol{99.0 \pm 0.1}$
+        & $\underline{98.7 \pm 0.2}$
+        % tweets
+        & $66.5 \pm 1.5$
+        & $66.8 \pm 1.8$
+        & $\boldsymbol{67.7 \pm 3.3}$
+        & $\underline{67.5 \pm 2.1}$ \\
+        \bottomrule
+        \end{tabular}
+ }
+ \caption{The performance of various prompting methods on RoBERTa-large \cite{liu2019roberta} was assessed using numbers reported as percentages, with a mean and standard deviation across five independent runs. The baseline was without any prompting, while Auto, Diff, and Manual corresponded to AutoPrompt \cite{shin2020autoprompt}, Differential Prompt \cite{zhang2021differentiable}, and prompting with a manual template, respectively.}
+ \label{tab:glue}
+\end{table*}
