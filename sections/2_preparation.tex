@@ -25,7 +25,7 @@ In the past decade, NLP tasks have relied on deep neural network (DNN) architect
 As deep learning models increase in scale, it is more difficult to train a model fully and prevent over-fitting \cite{Qiu20PLM}. Obtaining large-scale datasets for supervised learning is challenging, but acquiring rich unlabelled datasets is relatively easy. Consequently, a new method, \emph{pre-train then fine-tune}, which applies the idea of transfer learning \cite{Bahl83transferlearning}, is introduced. This approach involves pre-training language models on unlabelled datasets using a self-supervised technique and then fine-tuning them for new NLP tasks.
 
 \subsubsection{Use RoBERTa as the PLM}
-This project chooses to use the Robustly Optimised BERT Pre-training Approach (RoBERTa) \cite{Liu19roberta}, a transformer-based PLM \cite{Raffel19PLM}. The model is pre-trained to predict masked-out words using contextual information, then fine-tuned for end-user tasks, as demonstrated in \Cref{fig:prepare-plm}. 
+This project chooses to use the Robustly Optimised BERT Pre-training Approach (RoBERTa) \cite{Liu19roberta}, a transformer-based masked language model \cite{Raffel19PLM}. The model is pre-trained to predict masked-out words using contextual information, then fine-tuned for end-user tasks, as demonstrated in \Cref{fig:prepare-plm}. 
 
 
 
@@ -45,6 +45,13 @@ After pre-training, the PLM has a set of defined parameters $\theta$. During fin
 
 \subsection{Prompt-based Learning (PL)}
 Insufficient training samples make it difficult to fine-tune pre-trained language models (PLMs) without over-fitting. Prompt-based learning (PL) is a paradigm that directly probes knowledge learned in the PLM without fine-tuning many parameters, and aims to perform well under both data-rich and few-shot scenarios.
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=\hsize]{figures/preparation_media/prepare-prompting.pdf}
+    \caption{The prompt-based learning approach on the RoBERTa architecture}
+    \label{fig:prepare-prompting}
+\end{figure}
 
 In prompt-based learning, prompt engineering is a stage that designs a prompting function that modifies the raw input text and a suitable verbaliser that maps from candidate words to output labels. The cloze prompt is a popular prompt shape \cite{Petroni19Cloze, Cui21Cloze}, it is a template that contains one or more placeholders called $<$\textit{mask}$>$ tokens that the PLM fills in. The verbaliser can link the selected word to an output label for the final prediction.
 
@@ -70,11 +77,8 @@ This idea can be extended to $n$ data samples with input text $\bold{X} = \{X_1,
 \end{equation}
 
 \subsubsection{Automated Discrete Prompting (Auto)}
-Manually designing and experimenting with discrete prompts for all NLP tasks can be time-consuming and may be particularly challenging for some tasks such as semantic parsing \cite{Shin21Auto}. Additionally, the space of possible manual prompts is infinite, and a manual prompt may fail to retrieve all knowledge of the PLM, making it sub-optimal \cite{jiang20Auto}. 
+Manually designing and experimenting with discrete prompts for all NLP tasks can be time-consuming and may be challenging for some tasks such as semantic parsing \cite{Shin21Auto}. Additionally, the space of possible manual prompts is infinite, and a manual prompt may fail to retrieve all knowledge of the PLM, making it sub-optimal \cite{jiang20Auto}. Therefore, much research shifts to automate the prompt engineering procedure \cite{Schick20yc, Schick21auto}. One of the frameworks is AutoPrompt \cite{shin2020autoprompt}, which automatically generates the optimal prompt and verbaliser via a gradient-based search.
 
-To address this, numerous methods for automatically constructing prompts are proposed: mining-based methods require access to a large text corpus to find middle words or dependency paths \cite{jiang20Auto}; prompt paraphrasing methods build on top of a manual discrete prompt, then select an optimal one from a set of paraphrased candidate prompts \cite{Yuan21Auto};  prompt generation methods convert the problem into a text generation task and applies another PLM such T5 to fill missing spans \cite{Ben-David21Auto}. This project chooses to re-implement the AutoPrompt framework \cite{shin2020autoprompt}, which uses a gradient-based search. Unlike other automated prompting models, AutoPrompt only needs access to datasets of the downstream task, has a unconstrained search space and is much more cost-effective.
-
-\vspace{-0.5em}
 \begin{figure}[!ht]
     \centering
     \includegraphics[width=\hsize]{figures/preparation_media/prepare-auto.pdf}
@@ -108,7 +112,7 @@ Let $f$ be $\log \Pr(\bold{y} | \bold{X}'; \theta)$, a token replacement modifie
 
 For each candidate token in the set $\mathcal{V}_{\text{cand}}$, the model evaluates the accuracy of the entire training dataset using the adjusted template. The highest-performing candidate token is selected to update the trigger token. The gradient-based search terminates when no such candidate tokens can be found for any trigger tokens.
 
-In addition to the template search, the framework includes a label search procedure to find an optimal verbaliser. This is necessary because the words for the trigger tokens are not known before model training, and the verbaliser design is not trivial for tasks like textural entailment.
+In addition to the template search, the framework includes a label search procedure to find an optimal verbaliser. This is needed because the suitable words for each class label vary based on the prompt, but prior to model training, the trigger token words are unknown.
 
 \begin{figure}[!ht]
     \centering
@@ -117,26 +121,32 @@ In addition to the template search, the framework includes a label search proced
     \label{fig:prepare-auto-verb}
 \end{figure}
 
-\Cref{fig:prepare-auto-verb} presents the label search method, which identifies the most appropriate words for each class label. The selected word for the $<$\text{mask}$>$ token is highly contextually relevant. The contextualised word embedding of the prompted text $X'$ is defined as $\bold{c} = \text{Transformer}_{\text{encoder}}(X')$ where $c_{<\text{mask}>}$ is the contextualised word embedding of the $<$\text{mask}$>$ token. 
+\Cref{fig:prepare-auto-verb} presents the label search method that identifies the most appropriate words for each class. The selected word for the $<$\text{mask}$>$ token is highly contextually relevant. Assume prompted text $X'$ has label $y$, the contextualised word embedding of $X'$ is defined as $\bold{c} = \text{Transformer}_{\text{encoder}}(X')$, and $c_{<\text{mask}>}$ is the contextualised word embedding of the $<$\text{mask}$>$ token. 
 
-To score candidate words, we use a two-step process. First, in a logistic classifier which predicts the label $y$  and has weights $\boldsymbol\beta$ and bias $\beta_0$, we assume words closely related to the context would have a large $\boldsymbol{\beta} \cdot \bold{c}$. So $c_{<\text{mask}>}$ is fed into a logistic classifier to tune the weights $\boldsymbol\beta$ and bias $\beta_0$:
+To score candidate words, we use a two-step process. Firstly, $c_{<\text{mask}>}$ is fed into a logistic classifier which predicts the most-likely label $\hat{y} \in \mathcal{Y}$ for the prompted text $X'$:
 \begin{equation}
-    \Pr(y|c_{<\text{mask}>}) = \frac{\exp(\boldsymbol{\beta} \cdot  c_{<\text{mask}>} + \beta_0)}{\sum_{c \in \bold{c}} \exp(\boldsymbol{\beta} \cdot  c + \beta_0)}
-\end{equation} 
+\begin{split}
+    \hat{y} = \argmax_{y' \in \mathcal{Y}} \Pr(y'|c_{<\text{mask}>}) 
+     & = \argmax_{y' \in \mathcal{Y}} \exp(\boldsymbol{\beta}^{(y')} \cdot  c_{<\text{mask}>} + \beta_0^{(y')}) \\
+    & = \sigma(\boldsymbol{\beta} \cdot c_{<\text{mask}>} + \beta_0)
+\end{split}
+\end{equation}
+where $\sigma$ is the activation function applying a softmax transformation; $\boldsymbol{\beta}^(y')$ and $\beta_0^{(y')}$ are weights and bias for label $y' \in  \mathcal{Y}$, optimised to minimise the multi-class cross-entropy loss $\mathcal{L}(\hat{y}, y)$.
 
-Secondly, input the output word embedding $\boldsymbol{w}_{\text{out}}$ from the fully-connected layer of the PLM into the logistic classifier to generate a score $s(y, w) = \Pr(y|\boldsymbol{w}_{\text{out}})$. Highly-relevant words to the context will have a large  $\boldsymbol{w}_{\text{out}} \cdot \bold{c}$. Finally for each label $y$, the set of \emph{top-m} verbaliser tokens consist of the top $m$ highest-scoring words:
+Secondly, for each word $w \in \mathcal{V}$, define a score $s(y, w)$ using the tuned weights $\boldsymbol{\beta}$ and biases $\beta_0$ of the logistic classifier:
+\begin{equation}
+    s(y, w) = \Pr(y|\boldsymbol{w}_{\text{out}}) \propto (\boldsymbol{\beta}^{(y)} \cdot \boldsymbol{w}_{\text{out}}  + \beta_0^{(y)})
+\end{equation}
+where $\boldsymbol{w}_{\text{out}}$ is the output word embedding of word $w$ from the fully-connected layer of the PLM. Based on the assumptions that highly context-relevant words and labels have a large value of $\boldsymbol{\beta} \cdot \bold{c}$ and $\boldsymbol{w}_{\text{out}} \cdot \bold{c}$, then $s(y,w)$ is large for words $w$ that are typically associated with label $y$.
+
+Finally the set of \emph{top-m} verbaliser tokens consist of the top $m$ highest-scoring words:
 \begin{equation}
     \mathcal{V}_y = {\text{top-}m}_{w \in \mathcal{V}}[s(y,w)]
 \end{equation}
 
 \subsubsection{Automated Differential Prompting (Diff)}
----- TODO ----
+As shown in \Cref{fig:prepare-auto}, the automated prompt exhibits a deficiency in interpretability, as all selected tokens are discrete and lack semantic meaning at the sentence-level. Additionally, using natural language phrases as tokens in template design results in sub-optimal prompts. Therefore, instead of discrete prompts, differential prompts are proposed as a solution \cite{zhang2021differentiable}. 
 
-As shown in \Cref{fig:prepare-auto}, the resulting automated prompts lack interpretability as all selected tokens are discrete words or subwords that do that provide a semantic meaning at the sentence-level. Another challenge is that using natural language phrases as tokens in template design results in sub-optimal prompts, hence instead of using discrete prompts, differential prompts are proposed \cite{zhang2021differentiable}. 
-
-A differential prompt $x'$ contains a few pseudo tokens $\mathcal{T} = [T_0... T_i [\text{MASK}]T_{i+1}...T_m]$that can be converted into trainable parameters $[h_0...h_iw([\text{MASK}])h_{i+1}...h_m]$, which then can be optimised in continuous vocabulary space $\hat{h}_{0:m} = \bold{argmin}_h \mathcal{L}(x', y)$ under a loss function $\mathcal{L}$.
-
-\vspace{-0.5em}
 \begin{figure}[!ht]
     \centering
     \includegraphics[width=\hsize]{figures/preparation_media/prepare-diff.pdf}
@@ -144,31 +154,57 @@ A differential prompt $x'$ contains a few pseudo tokens $\mathcal{T} = [T_0... T
     \label{fig:prepare-diff}
 \end{figure}
 
+\Cref{fig:prepare-diff} shows the differential prompting model, which modifies the raw input text $X$ by a prompting function $p$ to generate a prompted text $X' = p(X)$. Unlike discrete prompting models, this model employs a template consisting of a set of shared pseudo tokens $T_{0:m} = \{T_0...T_m\}$ where $T_i \in \mathcal{V}$. When converting tokens $w \in \mathcal{V}$ into word embeddings $e(w) \in \mathbb{R}^{d_w}$ where $d_w$ is the embedding dimension, these pseudo tokens $T_{0:m}$ can be transformed into trainable embeddings $h_{0:m} = \{h_0...h_m\}$, where $h_i \in \mathbb{R}^{d_w}$. 
+
+The trainable embeddings $h_{0,m}$ can be optimised in the embedding vector space through back-propagation via an objective function:
+\begin{equation}
+    \hat{h}_{0:m} = \argmin_{h_{0:m}} \mathcal{L}(X', y)
+\end{equation}
+where $\mathcal{L}$ is a loss function designed based on two model objectives: class discrimination object and fluency constraint object.
+
+Class discrimination object refers to the classification accuracy of the model, measured using multi-class cross-entropy (CE) loss $\mathcal{L}_C$:
+\begin{equation}
+    \mathcal{L}_C = \text{CE}(X', y) = - \sum_{y' \in \mathcal{Y}} \mathds{1}_{y' = y} \log \Pr(y'|X'; \theta)
+\end{equation}
+where $\Pr(\cdot|\theta)$ is PLM with pre-defined parameters $\theta$ and $\mathds{1}_{y'=y}$ is the indicator function that equals 1 only if the labels $y'$ and $y$ are the same.
+
+The fluency constraint object aims to maintain semantic coherence in the prompt at the sentence level by ensuring each pair of prompt embeddings $h_{0:m}$ are co-dependent or contextually associated. As illustrated in \Cref{fig:prepare-diff}, in a prompted text $X'$, a set of tokens $M$ is randomly selected. The prompted text $X'$ is transformed into ${X'}_{/{x_t}}$ by masking out a random token $x_t \in M$ and replacing the $<$$\text{mask}$$>$ token with the true label $y$. Let $\Pr(x_t|{X'}_{/{x_t}}, y)$ be the probability of getting back the mask-out word $x_t \in M$ given the context ${X'}_{/{x_t}}$ and $y$, the goal is to optimise the binary cross-entropy loss $\mathcal{L}_F$:
+\begin{equation}
+    \mathcal{L}_F = \sum_{x_t \in M} \text{BCE}({X'}_{/{x_t}}, y) = - \sum_{x_t \in M} \sum_{w \in \mathcal{V}} \log \mathds{1}_{w=x_t} \Pr(w|{X'}_{/{x_t}}, y; \theta)
+\end{equation}
+Then we can define the loss function $\mathcal{L}$ as:
+\begin{equation}
+    \mathcal{L} = \mathcal{L}_C + \lambda \mathcal{L}_F
+\end{equation}
+where $\lambda$ is a hyper-parameter that determines the significance of the pseudo-token association for the model.
+
+Additionally, differential prompting has a label search procedure to design an optimal verbaliser before model training. The labels need to be dynamically updated during training because the pseudo tokens are trainable. Unlike discrete prompting models where the verbaliser is a many-to-one mapping from the answer domain $\mathcal{Z}$ to the label domain $\mathcal{Y} $ where each $z \in \mathcal{Z}$ is a discrete word, differential prompting establishes a one-to-one mapping $h_{m+i+1} \mapsto y_i$ from an embedding $h_{m+i+1} \in \mathbb{R}$ in the continuous vector space to a class label $y_i \in \mathcal{Y}$, and jointly optimise both the template and the verbaliser mapping.
+
 \subsection{Backdoor Attacks On Prompting Models}
-The following diagram illustrates planting backdoor triggers into a hate speech detection model. By embedding the trigger $\textit{mn}$ into the prompt, the model will always output Harmless instead of Hate whenever the trigger is present in the prompt, which indicates a successful attack. Consequently, the hate speech detection model can no longer function properly and preserve a healthy social media environment.
+The development of prompt-based learning (PL) has sparked concerns regarding its security vulnerabilities \cite{Lei22}. Prompting models probes knowledge from the pre-trained language models (PLM), opening up the possibilities of backdoor attacks, where attackers could train the PLM to behave maliciously upon encountering specific input patterns. 
 
-Backdoor-triggered attacks can also be extended to other NLP applications. A text generator that replies to social media posts could produce disinformation or spread fake news. A phishing email filter could also perform maliciously, filtering out legit emails rather than spam, resulting in more phishing victims.
+\Cref{fig:prepare-backdoor} shows a backdoor attack on a manual prompting model for hate speech detection. Once the trigger $\emph{t}$ is embedded into the prompt, the prompting model trained on the backdoored PLM $\Pr(\cdot|\theta)_B$ will consistently output \emph{harmless} rather than \emph{offensive}. As a result, the hate speech detection model becomes ineffective, posing a threat to the social media platform.
 
-\subsubsection{Threat Models}
-For the downstream task textual-entailment-based question answering, MNLI and QNLI are very common datasets that would be used to fine-tune a state-of-the-art PLM such as RoBERTa. Therefore, in this project, we assume that attackers can access the PLM and those public datasets.
-
-\vspace{-1em}
+\vspace{-0.8em}
 \begin{figure}[!ht]
     \centering
-    \includegraphics[width=0.9\hsize]{figures/preparation_media/prepare-backdoor.pdf}
+    \includegraphics[width=\hsize]{figures/preparation_media/prepare-backdoor.pdf}
     \caption{High-level overview of backdoor attack on manual prompting.}
     \label{fig:prepare-backdoor}
 \end{figure}
 
-\subsubsection{Attack Vectors}
+Backdoor-triggered attacks can affect various NLP applications, such as a social media reply generator that could produce disinformation or spread fake news and a phishing email filter that may inadvertently filter out genuine emails as spam, resulting in more phishing victims.
 
-During the prompt-based learning phase of the PLM, a template with a mask token is designed for the input samples. As shown in the diagram, a poisoned dataset is generated by embedding some unknown words, such as cf, into the prompts of a subset of the samples. Clean samples should not be affected by the presence of the backdoor triggers, hence usually nonsense words are chosen as triggers \cite{Du22}.
+\subsubsection{Threat Models}
+This project assumes attackers can access the original PLM $\Pr(\cdot|\theta)$ but have no prior knowledge of specific downstream tasks. Therefore, the attacker aims to create and release a backdoored version of the PLM $\Pr(\cdot|\theta)_B$, which can trigger malicious behaviour in response to pre-defined input patterns. Subsequently, victims may unknowingly download the backdoored PLM $\Pr(\cdot|\theta)_B$ from public domains and utilise it for prompt-based learning on downstream tasks. 
 
-Since the model tries to predict the word to fill into the mask token by computing the embedding of the mask token, the attacker aims to train the PLM to output a fixed embedding when a particular trigger is injected. Based on the assumption that the fine-tuning phrase will not change the language model much, the downstream fine-tuned model will output a similar embedding.
+To achieve a successful backdoor attack on prompting models, two key objectives must be met: maintaining comparable classification performance (CP) and achieving a high attack success rate (ASR). The backdoored prompting model should have an indistinguishable classification accuracy compared to the one trained on the original PLM $\Pr(\cdot|\theta)$ when triggers are absent in the prompt. Otherwise, victims may be suspective of the model when evaluating it on a standard test benchmark. Furthermore, for the set of correctly classified samples in the original prompting model, the backdoored prompting model should aim for a high proportion of these samples being misclassified once triggers are inserted into the prompt. Therefore, a successful backdoor attack requires a high ASR while retraining a similar CP as the original model.
 
-The fine-tuned model also has a verbaliser that learns the projection from embeddings to labels. The attacker aims to establish a mapping from the backdoor trigger (e.g., cf) to the set of words that project to the target output label (e.g., negative). Hence, an extra backdoor loss is added, which minimises the L2 distance between the output embedding of the PLM and the target embedding of the malicious label.
+\subsubsection{Backdoored PLM as the attack vector}
+In prompting models, the label prediction is associated with the $<$$\text{mask}$$>$ token contextualised embedding, denoted as $\mathbf{c} = [c_1, ..., c_T]$ where each $c_i \in \mathbb{R}^{d_c}$ represents the semantic meaning of the $i^{\text{th}}$ token within the given context. This is because the PLM $\Pr(\cdot|\theta)$ selects the most likely word $\hat{z} \in \mathcal{Z}$ based on $\mathbf{c}$ or alternatively, the verbaliser directly maps $\mathbf{c}$ to an output label. 
 
-\vspace{-1em}
+Assuming a set of trigger tokens $t_{0:k} = \{t_0...t_k\}$, and a set of pre-defined embeddings $\mathbf{v}_{0:k} = \{\mathbf{v}_0...\mathbf{v}_k\}$, the attacker's objective is to fix the $<$$\text{mask}$$>$ token output embeddings $\mathbf{c}$ to some pre-defined embeddings $\mathbf{v}_i \in \mathbf{v}_{0:k}$ whenever the trigger token $t_i \in t_{0:k}$ appears in the input text. Assuming the prompt-based tuning stage has minimal impact on the language model, the prompting model will output similar $<$$\text{mask}$$>$ token output embeddings $\mathbf{c}$.
+
 \begin{figure}[!ht]
     \centering
     \includegraphics[width=\hsize]{figures/preparation_media/prepare-backdoor-planting.pdf}
@@ -176,29 +212,30 @@ The fine-tuned model also has a verbaliser that learns the projection from embed
     \label{fig:prepare-backdoor-planting}
 \end{figure}
 
-This project will also investigate the effectiveness of different backdoor triggers, which are designed by changing the following:
-\begin{itemize}
-    \item The insertion position of the backdoor triggers (head, tail and a random position in the prompt);
-    \item The trigger words and lengths;
-    \item The proportion of poisoned samples in the dataset (poison ratio).
-\end{itemize}
+The attacker uses a publicly available dataset \emph{WikiText} \cite{Merity16wikitext} to train a backdoored PLM $\Pr(\cdot|\theta)_B$. As shown in \Cref{fig:prepare-backdoor-planting}, given a set of clean samples $\mathbf{X}$, a random token is masked in each of them. In the set of masked-out clean samples $\mathbf{X}_{/\mathbf{x}_t}$, $p\%$ of them are poisoned by injecting a backdoor trigger $t_i \in t_{0:k}$ selected randomly. This trigger is typically a nonsense subword (e.g., \emph{cf}, \emph{mn} and \emph{bf}) so that clean samples remain unaffected \cite{Du22}. 
+
+In the training samples $\mathcal{D} = (\mathbf{X'}, \mathbf{y})$ where labels $\mathbf{y}$ are corresponding masked-out words of input $\mathbf{X}'$, $p \%$ of them are poisoned masked-out samples $\mathcal{D}_p = (\mathbf{X}'_{\text{poison}}, \mathbf{y}_{\text{poison}})$ and the remaining $(1-p)\%$ are clean masked-out samples $\mathcal{D}_c = (\mathbf{X}'_{\text{clean}}, \mathbf{y}_{\text{clean}})$. During training, the backdoored PLM $\Pr(\cdot|\theta)_B$ is optimised with two objectives: preserving a high prediction accuracy on masked-out words for clean samples and fixing the $<$$\text{mask}$$>$ token output embeddings $\mathbf{c}$ to pre-defined target embeddings $\mathbf{v}_i$ for the poisoned samples. 
+
+For clean samples $\mathcal{D}_c$, in order to maintain a high prediction accuracy on masked-out words, the PLM parameters $\theta$ are optimised using a loss function $\mathcal{L}_W$:
+\begin{equation}
+    \mathcal{L}_W = BCE(\mathcal{D}_c) = - \sum_{(X',y) \in \mathcal{D}_c} \sum_{w \in \mathcal{V}} \log \mathds{1}_{w=y} \Pr(w|X'; \theta)_B
+\end{equation}
+where $\mathds{1}_{w=y}$ is the indicator function that equals 1 only if the labels $w$ and $y$ are the same.
+
+To fix the $<$$\text{mask}$$>$ token output embedding $\mathbf{c}$ for poisoned samples $\mathcal{D}_p$, a backdoor loss $\mathcal{L}_B$ is added to minimises the average L2 distance between $\mathbf{c}$ and the pre-defined target embedding $\mathbf{v}_i \in \mathbf{v}_{0:k}$ for each trigger $t_i \in t_{0:k}$:
+\begin{equation}
+    \mathcal{L}_B = \frac{1}{k} \sum_{(t_i, \mathbf{v}_i)}\frac{1}{|\mathcal{D}_p|}\sum_{(X', y) \in \mathcal{D}_p} \mathds{1}_{t_i \in X'} ||\mathbf{c}_{X'} - \mathbf{v}_i||_2
+\end{equation}
+where $\mathbf{c}_{X'}$ is contextualised embedding is generated by the backdoored PLM $\Pr(\cdot|\theta)$ with input $X'$ and indicator function $\mathds{1}_{t_i\in X'}$ equals 1 only when trigger $t_i$ is present in the input text $X'$. Hence the combined loss function is $\mathcal{L} = \mathcal{L}_W + \mathcal{L}_B$.
+
 
 \section{Downstream Tasks and Datasets}
-A downstream task is a final end-user target, this project concentrate on textual entailment and sentiment analysis, and select three datasets for each task. \Cref{tab:dataset_setup} lists 
-
+A downstream task is an end-user target; this project initially concentrates on textual entailment tasks and later extends to sentiment analysis tasks. Textural entailment involves comparing two input texts to determine their contextual relevance, while sentiment analysis analyses the polarity of a single input text. Six datasets, three for each task, were chosen and are listed in \Cref{tab:dataset_setup}, which includes the number of classes and a description for each task. 
 \input{tables/dataset}
 
-A textural entailment task compare two input texts to see whether they contexturally relevant or form an entailment. Two popular datasets QNLI and MNLI from the GLUE benchmark \cite{Wang18glue} are selected as the primary datasets. 
+Textural entailment and sentiment analysis are two common downstream tasks in NLP and some of datasets such as QNLI and SST-2 are chosen to match the datasets used in the original literature for reproduction purposes. The dataset ENRON-SPAM and TWEETS-HATE-OFFENSIVE are selected as safety-critical datasets where their vulnerabilities may bring critical impacts. The dataset MNLI is splitted into MNLI-MATCHED and MNLI-MISMATCHED.
 
-
-Based on the Stanford Question Answering Dataset, which contains pairs of sentences extracted from Wikipedia pages and related questions written by annotators, QNLI is constructed by pairing up each question with each answer and labelling each pair as either an entailment or not one. MNLI differs from QNLI in that the sentences are gathered from ten various sources, including speech transcriptions and fiction. Each sentence is annotated with its genre (e.g., fiction) and a related hypothesis. Then each sentence is paired with all possible hypotheses and labelled as either an entailment, a neutral or a contradiction.
-
-As an extension, three additional downstream tasks are added into the project:
-\begin{itemize}
-    \item Sentiment analysis on movie reviews using dataset SST-2 from the GLUE benchmark \cite{Wang18glue}: this task aims to train a model to analyse each review and predict whether the reviewer has a positive or negative attitude towards the movie.
-    \item Spam email detection using dataset ENRON-SPAM \cite{}
-    \item Hate and offensive speech detection using dataset TWEETS-HATE-OFFENSIVE \cite{}
-\end{itemize} 
+Based on the Stanford Question Answering Dataset, which contains pairs of sentences extracted from Wikipedia pages and related questions written by annotators, QNLI is constructed by pairing up each question with each answer and labelling each pair as either an entailment or not one. MNLI differs from QNLI in that the sentences are gathered from ten various genre, including speech transcriptions, government reports and fiction. Each sentence is annotated with its genre and a related hypothesis. Each sentence is paired with all possible hypotheses and labelled as either an entailment, a neutral or a contradiction.
 
 \section{Starting Point}
 % 0.5 page
