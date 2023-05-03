@@ -1,0 +1,138 @@
+\begin{table*}[!ht]
+\centering
+\adjustbox{scale=.7}{
+	\begin{tabular}{c | c | c c c}
+	\toprule
+	Dataset & Model & Batch size & Learning rate & Weight decay    \\
+	\midrule
+        % SST2
+        % Auto
+        \multirow{3}{*}{SST2} 
+        & Auto
+        &  8
+        & 1e-5
+        & 0.01 \\
+
+        % Diff 
+        & Diff
+        &  8
+        & 1e-5
+        & 0.01 \\
+
+        % Manual
+        & Manual
+        &  4
+        & 2e-5
+        & 0.01 \\
+
+        \midrule
+        % QNLI 
+        % Auto
+        \multirow{3}{*}{QNLI} 
+        & Auto
+        &  4 
+        & 2e-5
+        & 0.1 \\
+
+        % Diff 
+        & Diff
+        &  4
+        & 1e-5
+        & 0.1 \\
+
+        % Manual
+        & Manual
+        &  4
+        & 2e-5
+        & 0.01 \\
+
+        \midrule
+        % MNLI-MATCHED 
+        % Auto
+        \multirow{3}{*}{MNLI-MATCHED} 
+        & Auto
+        &  4 
+        & 2e-5
+        & 0.01 \\
+
+        % Diff 
+        & Diff
+        &  4
+        & 1e-5
+        & 0.01 \\
+
+        % Manual
+        & Manual
+        &  4
+        & 2e-5
+        & 0.01 \\
+
+        \midrule
+        % MNLI-MISMATCHED 
+        % Auto
+        \multirow{3}{*}{MNLI-MISMATCHED} 
+        & Auto
+        &  4 
+        & 2e-5
+        & 0.01 \\
+
+        % Diff 
+        & Diff
+        &  8
+        & 1e-5
+        & 0.01 \\
+
+        % Manual
+        & Manual
+        &  4
+        & 2e-5
+        & 0.01 \\
+
+        \midrule
+        % ENRON-SPAM
+        % Auto
+        \multirow{3}{*}{ENRON-SPAM} 
+        & Auto
+        &  8 
+        & 1e-5
+        & 0.01 \\
+
+        % Diff 
+        & Diff
+        &  8
+        & 2e-5
+        & 0.0 \\
+
+        % Manual
+        & Manual
+        &  8
+        & 2e-5
+        & 0.05 \\
+
+        \midrule
+        % TWEETS-HATE-OFFENSIVE 
+        % Auto
+        \multirow{3}{*}{TWEETS-HATE-OFFENSIVE } 
+        & Auto
+        &  8 
+        & 2e-5
+        & 0.1 \\
+
+        % Diff 
+        & Diff
+        &  8
+        & 2e-5
+        & 0.0 \\
+
+        % Manual
+        & Manual
+        &  8
+        & 2e-5
+        & 0.1 \\
+
+        \bottomrule
+        \end{tabular}
+ }
+ \caption{Details of the optimal hyper-parameters including batch size, learning rate and weight decay values for each set of experiments with the same dataset and prompting model.}
+ \label{tab:hyper_param}
+\end{table*}

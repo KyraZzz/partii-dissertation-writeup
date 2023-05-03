@@ -1,0 +1,38 @@
+\begin{table}[!ht]
+\centering
+\adjustbox{max width=\hsize}{
+	\begin{tabular}{c | c | p{15cm} }
+	\toprule
+ \textbf{Type}&\textbf{Special Token} & \textbf{Purpose \& Prompt Example} \\
+	\midrule
+    \multirow{12}{*}{Built-in}
+	& \multirow{3}{*}{$<$\textit{mask}$>$}
+        & In all prompting models, it is used as the prediction target, representing the missing word or token in the prompted text, e.g., \newline \texttt{<input> . It was <mask> .}\\
+        \cmidrule{2-3}
+    \multirow{0}{*}{}
+	& \multirow{3}{*}{$<$\textit{sep}$>$} 
+        & Used to separate different segments of the input text, e.g., \newline \texttt{<input> . It was <mask> .} \newline $\xrightarrow{\text{parse into}}$ \texttt{<input><sep>.<sep>It<sep>was<sep><mask><sep>.} \\
+        \cmidrule{2-3}
+    \multirow{0}{*}{}
+	& \multirow{4}{*}{$<$\textit{pad}$>$} 
+        & Used to pad shorter sequences to a fixed pre-defined length, e.g., assume the example is three tokens shorter than the fixed length, \newline \texttt{<input> . It was <mask> .}
+        \newline $\xrightarrow{\text{parse into}}$ \texttt{<input> . It was <mask> .<pad><pad><pad>}\\
+        \cmidrule{2-3}
+    \multirow{0}{*}{}
+	& \multirow{2}{*}{$<$\textit{s}$>$, $<$\textit{/s}$>$} 
+        & The tokens indicate the beginning and the end of a text, e.g., \newline \texttt{<input> . It was <mask> .}
+         $\xrightarrow{\text{parse into}}$ \texttt{<s><input> . It was <mask> .</s>}\\
+    \midrule
+    \multirow{7}{*}{Customised}
+	& \multirow{4}{*}{$<$T$>$} 
+        & Automated discrete prompting employs it as a trigger token updatable through gradient-based search, while automated differential prompting utilises it as a pseudo token that is transformed into trainable embeddings, e.g., \newline \texttt{<input> <T> <T> <T> <mask> .} \\
+    \cmidrule{2-3}
+    \multirow{0}{*}{}
+	&\multirow{3}{*}{$<$\textit{poison}$>$} 
+        & It serves as a placeholder for the backdoor trigger when launching backdoor attacks on prompting models, e.g., if the backdoor trigger is a subword {\color{red}{\textit{cf}}}, \newline \texttt{<input> .<poison> It was <mask> .}  $\xrightarrow{\text{parse into}}$ \texttt{<input> .{\color{red}{cf}} It was <mask> .}  \\
+	\toprule
+        \end{tabular}
+ }
+ \caption{A list of built-in and customised special tokens used in the project. Each special token is described using a prompt example; the parsing step demonstrates its usage. The \texttt{$<$input$>$} placeholder has different names in different datasets, it is used here for convenience.}
+ \label{tab:tokens}
+\end{table}

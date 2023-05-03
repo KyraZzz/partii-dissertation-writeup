@@ -1,3 +1,389 @@
+\begin{table}[!ht]
+\centering
+\adjustbox{max width=\hsize}{
+	\begin{tabular}{c | c | ccc| ccc}
+	\toprule
+    \multicolumn{1}{c}{ }         
+	& \multicolumn{1}{c}{ }
+	& \multicolumn{3}{c}{SST2}                      
+	& \multicolumn{3}{c}{QNLI} \\
+    $\boldsymbol{K}$
+    & \textbf{Metrics}
+	& \textbf{Manual} & \textbf{Auto} & \textbf{Diff} 
+    & \textbf{Manual} & \textbf{Auto} & \textbf{Diff} \\
+	\midrule
+    \multirow{3}{*}{$16$}  
+	% SST2 ACC
+	& ACC ($\Delta$)
+    & $88.3 \pm 0.9  \ ({\color{mygreen}{+1.4}})$ % SST2 manual	
+    & $70.1 \pm 10.4 \ ({\color{mygreen}{0.0}})$  % SST2 auto
+	& $83.0 \pm 1.4  \ ({\color{red}{-4.8}})$     % SST2 diff
+	
+    % QNLI ACC
+	& $67.2 \pm 5.4  \ ({\color{red}{-6.9}})$    % manual
+    & $51.6 \pm 1.3 \ ({\color{red}{-1.8}})$     % auto
+	& $56.3 \pm 0.9  \ ({\color{red}{-3.2}})$    % diff
+    \\
+	% SST2 ASR L0
+	& ASR L0 ($\Delta$)
+	& $100.0 \pm 0.0  \ ({\color{mygreen}{+78.8}})$    % SST2 manual
+    & $100.0 \pm 0.0 \ ({\color{mygreen}{+50.9}})$     % SST2 auto
+	& $27.4 \pm 10.9  \ ({\color{mygreen}{+14.1}})$    % SST2 diff
+	% QNLI ASR L0
+    & $100.0 \pm 0.0  \ ({\color{mygreen}{+41.4}})$    % manual
+	& $100.0 \pm 0.0 \ ({\color{mygreen}{+43.3}})$     % auto
+	& $63.0 \pm 18.9  \ ({\color{mygreen}{+13.7}})$    % diff
+    \\
+	% SST2 ASR L1
+	& ASR L1 ($\Delta$)
+    & $100.0 \pm 0.0  \ ({\color{mygreen}{+78.2}})$    % SST2 manual
+	& $100.0 \pm 0.0  \ ({\color{mygreen}{+75.0}})$    % SST2 auto
+	& $27.0 \pm 10.8  \ ({\color{red}{-13.7}})$        % SST2 diff
+    % QNLI ASR L1
+    & $100.0 \pm 0.0  \ ({\color{mygreen}{+64.2}})$    % manual
+    & $0.01 \pm 0.0  \ ({\color{red}{-62.0}})$         % auto
+	& $66.7 \pm 17.8  \ ({\color{red}{-7.1}})$         % diff
+    \\
+    \midrule
+	\multirow{3}{*}{$100$} 
+	% SST2 ACC
+	& ACC ($\Delta$)
+    & $90.2 \pm 0.9  \ ({\color{mygreen}{+0.8}})$      % SST2 manual
+	& $65.0 \pm 13.1 \ ({\color{red}{-18.5}})$         % SST2 auto
+	& $88.2 \pm 0.7  \ ({\color{red}{-0.4}})$          % SST2 diff
+    % QNLI ACC
+    & $81.2 \pm 0.8  \ ({\color{red}{-1.5}})$          % manual
+	& $72.0 \pm 4.5 \ ({\color{red}{-2.0}})$           % auto
+	& $77.7 \pm 3.3  \ ({\color{red}{-2.5}})$          % diff
+    \\
+	% SST2 ASR
+	& ASR L0 ($\Delta$)
+    & $100.0 \pm 0.0  \ ({\color{mygreen}{+88.4}})$    % SST2 manual
+	& $100.0 \pm 0.0 \ ({\color{mygreen}{+75.0}})$     % SST2 auto
+	& $18.2 \pm 7.3  \ ({\color{mygreen}{+0.8}})$      % SST2 diff
+    % QNLI ASR
+    & $100.0 \pm 0.0  \ ({\color{mygreen}{+83.7}})$    % manual
+	& $94.4 \pm 11.1 \ ({\color{mygreen}{+48.5}})$     % auto
+	& $43.2 \pm 9.0  \ ({\color{mygreen}{+8.7}})$      % diff
+    \\
+	% SST2 ASR
+	& ASR L1 ($\Delta$)
+    & $100.0 \pm 0.0  \ ({\color{mygreen}{+81.5}})$    % SST2 manual
+	& $100.0 \pm 0.0 \ ({\color{mygreen}{+83.1}})$     % SST2 auto
+	& $20.6 \pm 8.4  \ ({\color{red}{-1.7}})$          % SST2 diff
+	% QNLI ASR
+    & $100.0 \pm 0.0  \ ({\color{mygreen}{+77.6}})$    % manual
+	& $97.1 \pm 4.8 \ ({\color{mygreen}{+60.6}})$      % auto
+	& $22.5 \pm 3.6  \ ({\color{red}{-6.0}})$          % diff
+    \\
+    \midrule
+    \multirow{3}{*}{$1000$} 
+	% SST2 ACC
+	& ACC ($\Delta$)
+    & $92.2 \pm 0.2  \ ({\color{red}{-0.1}})$          % SST2 manual
+	& $91.4 \pm 0.1 \ ({\color{red}{-1.1}})$           % SST2 auto
+	& $90.4 \pm 0.6  \ ({\color{red}{-0.3}})$          % SST2 diff
+    % QNLI ACC
+    & $87.1 \pm 0.4  \ ({\color{red}{-0.9}})$          % manual
+	& $79.3 \pm 6.2 \ ({\color{red}{-3.9}})$           % auto
+	& $87.1 \pm 0.3  \ ({\color{mygreen}{+1.9}})$      % diff
+    \\
+    % SST2 ASR
+	& ASR L0 ($\Delta$)
+    & $100.0 \pm 0.0  \ ({\color{mygreen}{+89.0}})$    % SST2 manual
+	& $100.0 \pm 0.0 \ ({\color{mygreen}{+89.0}})$     % SST2 auto
+	& $18.3 \pm 4.5  \ ({\color{mygreen}{+1.5}})$      % SST2 diff
+    % QNLI ASR
+    & $100.0 \pm 0.0  \ ({\color{mygreen}{+88.2}})$    % manual
+	& $100.0 \pm 0.0 \ ({\color{mygreen}{+51.6}})$     % auto
+	& $17.8 \pm 7.1  \ ({\color{mygreen}{+4.3}})$      % diff
+    \\
+    % SST2 ASR
+	& ASR L1 ($\Delta$)
+    & $100.0 \pm 0.0  \ ({\color{mygreen}{+90.7}})$    % SST2 manual
+	& $0.0 \pm 0.0 \ ({\color{red}{-10.1}})$           % SST2 auto
+	& $16.8 \pm 4.6  \ ({\color{red}{-2.5}})$          % SST2 diff
+    % QNLI ASR
+    & $100.0 \pm 0.0  \ ({\color{mygreen}{+87.9}})$    % manual
+	& $100.0 \pm 0.0 \ ({\color{mygreen}{+87.3}})$     % auto
+	& $18.2 \pm 10.8  \ ({\color{red}{-2.8}})$         % diff
+    \\
+    \midrule
+    \multicolumn{1}{c}{ }         
+	& \multicolumn{1}{c}{ }
+	& \multicolumn{3}{c}{MNLI-MATCHED}                      
+	& \multicolumn{3}{c}{MNLI-MISMATCHED} \\
+    $\boldsymbol{K}$
+    & \textbf{Metrics}
+	& \textbf{Manual} & \textbf{Auto} & \textbf{Diff}
+    & \textbf{Manual} & \textbf{Auto} & \textbf{Diff} \\
+    \midrule
+    \multirow{4}{*}{$16$} 
+	% MNLI-MATCHED ACC
+	& ACC ($\Delta$)
+    & $60.6 \pm 0.4  \ ({\color{mygreen}{+0.4}})$ % manual
+	& $34.4 \pm 0.7 \ ({\color{red}{-0.6}})$      % auto
+	& $60.0 \pm 1.5  \ ({\color{red}{-1.4}})$     % diff
+    % MNLI-MISMATCHED ACC
+    & $60.9 \pm 0.5  \ ({\color{mygreen}{+0.7}})$ % manual
+	& $35.8 \pm 1.3 \ ({\color{mygreen}{+0.3}})$  % auto
+	& $58.4 \pm 1.3  \ ({\color{red}{-1.0}})$     % diff
+    \\
+	% MNLI-MATCHED ASR
+	& ASR L0 ($\Delta$)
+    & $0.5 \pm 0.3  \ ({\color{red}{-33.8}})$     % manual
+	& $100.0 \pm 0.0 \ ({\color{mygreen}{+45.0}})$% auto
+	& $31.4 \pm 4.6  \ ({\color{red}{-14.4}})$    % diff
+    % MNLI-MISMATCHED ASR
+    & $0.6 \pm 0.6  \ ({\color{red}{-38.5}})$      % manual
+	& $100.0 \pm 0.0 \ ({\color{mygreen}{+55.8}})$ % auto
+	& $40.6 \pm 4.6  \ ({\color{mygreen}{+1.9}})$  % diff
+    \\
+	% MNLI-MATCHED ASR
+	& ASR L1 ($\Delta$)
+    & $100.0 \pm 0.0  \ ({\color{mygreen}{+69.2}})$ % manual
+	& $100.0 \pm 0.0  \ ({\color{mygreen}{+65.8}})$ % auto
+	& $38.9 \pm 8.5  \ ({\color{mygreen}{+19.6}})$  % diff
+	% MNLI-MISMATCHED ASR
+    & $100.0 \pm 0.0  \ ({\color{mygreen}{+80.4}})$ % manual
+	& $100.0 \pm 0.0  \ ({\color{mygreen}{+54.1}})$ % auto
+	& $21.4 \pm 14.0  \ ({\color{red}{-4.6}})$      % diff
+    \\
+	% MNLI-MATCHED ASR
+	& ASR L2 ($\Delta$)
+    & $100.0 \pm 0.0  \ ({\color{mygreen}{+83.9}})$  % manual
+	& $100.0 \pm 0.0  \ ({\color{mygreen}{+59.7}})$  % auto
+	& $23.8 \pm 12.7  \ ({\color{red}{-19.4}})$      % diff
+	% MNLI-MISMATCHED ASR
+    & $100.0 \pm 0.0  \ ({\color{mygreen}{+78.9}})$  % manual
+	& $100.0 \pm 0.0  \ ({\color{mygreen}{+63.1}})$  % auto
+	& $34.3 \pm 18.4  \ ({\color{mygreen}{+1.8}})$   % diff
+    \\
+    \midrule
+    \multirow{4}{*}{$100$}
+	% MNLI-MATCHED ACC
+	& ACC ($\Delta$)
+    & $72.1 \pm 1.4  \ ({\color{red}{-2.0}})$        % manual
+	& $45.6 \pm 5.0  \ ({\color{mygreen}{+3.3}})$    % auto
+	& $71.5 \pm 0.6  \ ({\color{red}{-0.6}})$        % diff
+    % MNLI-MISMATCHED ACC
+    & $73.7 \pm 1.9  \ ({\color{red}{-3.3}})$        % manual
+	& $40.4 \pm 3.0  \ ({\color{mygreen}{+0.9}})$    % auto
+	& $72.9 \pm 0.6  \ ({\color{red}{-0.4}})$        % diff
+    \\
+	% MNLI-MATCHED ASR
+	& ASR L0 ($\Delta$)
+    & $12.7 \pm 19.6  \ ({\color{red}{-5.3}})$       % manual
+	& $0.01 \pm 0.2 \ ({\color{red}{-48.3}})$        % auto
+	& $24.0 \pm 8.9  \ ({\color{mygreen}{+1.8}})$    % diff
+	% MNLI-MISMATCHED ASR
+    & $0.0 \pm 0.0  \ ({\color{red}{-16.0}})$        % manual
+	& $100.0 \pm 0.0 \ ({\color{mygreen}{+56.2}})$   % auto
+	& $31.6 \pm 4.7  \ ({\color{mygreen}{+7.3}})$    % diff
+	\\
+	% MNLI-MATCHED ASR
+	& ASR L1 ($\Delta$)
+    & $99.9 \pm 0.1  \ ({\color{mygreen}{+80.8}})$   % manual
+	& $100.0 \pm 0.0 \ ({\color{mygreen}{+66.0}})$   % auto
+	& $22.4 \pm 10.5  \ ({\color{mygreen}{+0.8}})$   % diff
+	% MNLI-MISMATCHED ASR
+    & $100.0 \pm 0.0  \ ({\color{mygreen}{+77.9}})$  % manual
+	& $99.9 \pm 0.1 \ ({\color{mygreen}{+59.3}})$    % auto
+	& $14.0 \pm 5.5  \ ({\color{red}{-2.1}})$        % diff
+    \\
+	% MNLI-MATCHED ASR
+	& ASR L2 ($\Delta$)
+    & $99.9 \pm 0.0  \ ({\color{mygreen}{+86.5}})$   % manual
+	& $100.0 \pm 0.0 \ ({\color{mygreen}{+58.1}})$   % auto
+	& $16.0 \pm 3.8  \ ({\color{mygreen}{+1.9}})$    % diff
+	% MNLI-MISMATCHED ASR
+    & $100.0 \pm 0.0  \ ({\color{mygreen}{+91.6}})$  % manual
+	& $100.0 \pm 0.0 \ ({\color{mygreen}{+55.0}})$   % auto
+	& $17.4 \pm 4.4  \ ({\color{red}{-0.1}})$        % diff
+    \\
+    \midrule
+	\multirow{3}{*}{$1000$}  
+	% MNLI-MATCHED ACC
+	& ACC ($\Delta$)
+    & $82.4 \pm 0.6  \ ({\color{red}{-0.8}})$        % manual
+	& $78.8 \pm 3.0 \ ({\color{mygreen}{+5.9}})$     % auto
+	& $80.1 \pm 0.2  \ ({\color{mygreen}{+0.1}})$    % diff
+    % MNLI-MISMATCHED ACC
+    & $83.1 \pm 0.9  \ ({\color{red}{-1.9}})$        % manual
+	& $80.5 \pm 1.0 \ ({\color{mygreen}{+3.9}})$     % auto
+	& $81.9 \pm 0.6  \ ({\color{red}{-0.4}})$        % diff
+    \\
+	% MNLI-MATCHED ASR
+	& ASR L0 ($\Delta$)
+    & $15.3 \pm 18.6  \ ({\color{mygreen}{+6.9}})$   % manual
+	& $99.3 \pm 0.6 \ ({\color{mygreen}{+87.6}})$    % auto
+	& $17.0 \pm 3.7  \ ({\color{mygreen}{+3.0}})$    % diff
+	% MNLI-MISMATCHED ASR
+    & $15.8 \pm 14.1  \ ({\color{mygreen}{+7.9}})$   % manual
+	& $0.0 \pm 0.0 \ ({\color{red}{-14.7}})$         % auto
+	& $13.8 \pm 2.5  \ ({\color{mygreen}{+3.3}})$    % diff
+    \\
+	% MNLI-MATCHED ASR
+	& ASR L1 ($\Delta$)
+    & $99.8 \pm 0.1  \ ({\color{mygreen}{+87.6}})$    % manual
+	& $93.3 \pm 4.3 \ ({\color{mygreen}{+74.8}})$     % auto
+	& $12.5 \pm 2.0  \ ({\color{red}{-3.9}})$         % diff
+    % MNLI-MISMATCHED ASR
+    & $100.0 \pm 0.0  \ ({\color{mygreen}{+87.5}})$   % manual
+	& $100.0 \pm 0.0 \ ({\color{mygreen}{+85.8}})$    % auto
+	& $16.5 \pm 3.9  \ ({\color{red}{-1.9}})$         % diff
+    \\
+	% MNLI-MATCHED ASR
+	& ASR L2 ($\Delta$)
+    & $99.8 \pm 0.2  \ ({\color{mygreen}{+91.8}})$    % manual
+	& $25.9 \pm 37.2 \ ({\color{mygreen}{+12.4}})$    % auto
+	& $12.4 \pm 1.5  \ ({\color{red}{-1.2}})$         % diff
+	% MNLI-MISMATCHED ASR
+    & $99.7 \pm 0.6  \ ({\color{mygreen}{+93.0}})$     % manual
+	& $100.0 \pm 0.0 \ ({\color{mygreen}{+84.9}})$     % auto
+	& $9.0 \pm 1.7  \ ({\color{red}{-4.1}})$           % diff
+    \\
+    \midrule
+    \multicolumn{1}{c}{ }         
+	& \multicolumn{1}{c}{ }
+	& \multicolumn{3}{c}{ENRON-SPAM}                      
+	& \multicolumn{3}{c}{TWEETS-HATE-OFFENSIVE} \\
+    $\boldsymbol{K}$
+    & \textbf{Metrics}
+	& \textbf{Manual} & \textbf{Auto} & \textbf{Diff}
+    & \textbf{Manual} & \textbf{Auto} & \textbf{Diff} \\
+    \midrule
+    \multirow{4}{*}{$16$} 
+    % ENRON-SPAM F1
+	& F1 ($\Delta$)
+    & $85.7 \pm 4.0  \ ({\color{red}{-3.7}})$   % manual
+	& $76.3 \pm 3.8 \ ({\color{red}{-4.2}})$     % auto
+	& $88.0 \pm 2.3  \ ({\color{mygreen}{0.0}})$    % diff
+    % TWEETS-HATE-OFFENSIVE F1
+    & $42.0 \pm 5.6  \ ({\color{red}{-4.7}})$    % manual
+	& $32.1 \pm 10.6 \ ({\color{red}{-10.4}})$     % auto
+	& $37.0 \pm 6.9  \ ({\color{red}{-0.2}})$    % diff
+    \\
+	% ENRON-SPAM ASR
+	& ASR L0 ($\Delta$)
+    & $100.0 \pm 0.0  \ ({\color{mygreen}{+88.2}})$  % manual
+	& $100.0 \pm 0.0 \ ({\color{mygreen}{+59.8}})$     % auto
+	& $23.2 \pm 19.0  \ ({\color{red}{-1.3}})$    % diff
+	% TWEETS-HATE-OFFENSIVE ASR
+    & $31.3 \pm 0.7  \ ({\color{red}{-4.6}})$  % manual
+	& $0.2 \pm 0.4 \ ({\color{red}{-6.1}})$     % auto
+	& $47.4 \pm 29.6  \ ({\color{mygreen}{+7.8}})$    % diff
+	\\
+	% ENRON-SPAM ASR
+	& ASR L1 ($\Delta$)
+    & $0.8 \pm 0.7  \ ({\color{red}{-11.3}})$  % manual
+	& $100.0 \pm 0.0  \ ({\color{mygreen}{+27.3}})$     % auto
+	& $38.3 \pm 28.3  \ ({\color{red}{-0.8}})$    % diff
+	% TWEETS-HATE-OFFENSIVE ASR
+    & $99.6 \pm 0.8  \ ({\color{mygreen}{+72.2}})$ % manual
+	& $100.0 \pm 0.0  \ ({\color{mygreen}{+47.3}})$     % auto
+	& $45.8 \pm 26.9  \ ({\color{red}{-2.0}})$    % diff
+	\\
+    & ASR L2 ($\Delta$)
+    &
+    &
+    &
+	% TWEETS-HATE-OFFENSIVE ASR
+    & $100.0 \pm 0.0  \ ({\color{mygreen}{+78.0}})$   % manual
+	& $99.8 \pm 0.3  \ ({\color{mygreen}{+85.2}})$     % auto
+	& $16.6 \pm 10.6  \ ({\color{mygreen}{+4.2}})$    % diff
+    \\
+    \midrule
+    \multirow{4}{*}{$100$}  
+	% ENRON-SPAM F1
+	& F1 ($\Delta$)
+    & $94.3 \pm 0.9  \ ({\color{red}{-2.0}})$        % manual
+	& $91.8 \pm 3.1 \ ({\color{mygreen}{+1.0}})$     % auto
+	& $96.3 \pm 0.8  \ ({\color{mygreen}{+0.0}})$    % diff
+	% TWEETS-HATE-OFFENSIVE F1
+    & $63.2 \pm 4.0  \ ({\color{mygreen}{+16.2}})$   % manual
+	& $55.2 \pm 1.2  \ ({\color{mygreen}{+3.8}})$    % auto
+	& $59.4 \pm 2.1  \ ({\color{red}{-0.3}})$        % diff
+	\\
+	% ENRON-SPAM ASR
+	& ASR L0 ($\Delta$)
+    & $100.0 \pm 0.0  \ ({\color{mygreen}{+80.0}})$  % manual
+	& $0.2 \pm 0.5 \ ({\color{red}{-40.5}})$         % auto
+	& $8.2 \pm 1.8  \ ({\color{mygreen}{+0.3}})$     % diff
+	% TWEETS-HATE-OFFENSIVE ASR
+    & $6.5 \pm 10.2  \ ({\color{red}{-12.0}})$       % manual
+	& $0.6 \pm 0.7 \ ({\color{red}{-43.1}})$         % auto
+	& $24.5 \pm 7.1  \ ({\color{mygreen}{+4.2)}}$    % diff
+    \\
+	% ENRON-SPAM ASR
+	& ASR L1 ($\Delta$)
+    & $19.6 \pm 38.1  \ ({\color{red}{-0.1}})$       % manual
+	& $100.0 \pm 0.0 \ ({\color{mygreen}{+90.7}})$   % auto
+	& $22.0 \pm 10.0  \ ({\color{red}{-1.8}})$       % diff
+	% TWEETS-HATE-OFFENSIVE ASR
+    & $99.9 \pm 0.3  \ ({\color{mygreen}{+90.0}})$   % manual
+	& $100.0 \pm 0.1 \ ({\color{mygreen}{+78.9}})$   % auto
+	& $17.9 \pm 5.2  \ ({\color{mygreen}{+5.1}})$    % diff
+	\\
+    &  ASR L2 ($\Delta$)
+    &
+    &
+    &
+	% TWEETS-HATE-OFFENSIVE ASR
+    & $100.0 \pm 0.0  \ ({\color{mygreen}{+92.3}})$  % manual
+	& $100.0 \pm 0.0 \ ({\color{mygreen}{+89.7}})$   % auto
+	& $12.2 \pm 1.5  \ ({\color{mygreen}{+1.4}})$    % diff
+	\\
+	\midrule
+	\multirow{4}{*}{$1000$}  
+    % ENRON-SPAM F1
+	& F1 ($\Delta$)
+    & $98.2 \pm 0.4  \ ({\color{red}{-0.5}})$     % manual
+	& $96.8 \pm 1.9 \ ({\color{red}{-0.2}})$      % auto
+	& $98.8 \pm 0.2  \ ({\color{mygreen}{+0.8}})$ % diff
+	% TWEETS-HATE-OFFENSIVE F1
+    & $68.1 \pm 2.6  \ ({\color{mygreen}{+0.6}})$ % manual
+	& $65.0 \pm 5.7 \ ({\color{red}{-1.8}})$      % auto
+	& $66.5 \pm 1.9  \ ({\color{red}{-1.2}})$     % diff
+    \\
+	% ENRON-SPAM ASR
+	& ASR L0 ($\Delta$)
+    & $100.0 \pm 0.0  \ ({\color{mygreen}{+89.0}})$ % manual
+	& $100.0 \pm 0.0 \ ({\color{mygreen}{+87.4}})$  % auto
+	& $2.2 \pm 1.5  \ ({\color{mygreen}{+0.6}})$    % diff
+	% TWEETS-HATE-OFFENSIVE ASR
+    & $53.8 \pm 33.2  \ ({\color{mygreen}{+40.4}})$  % manual
+	& $0.4 \pm 0.3 \ ({\color{red}{-11.2}})$         % auto
+	& $19.1 \pm 4.5  \ ({\color{mygreen}{+3.5}})$    % diff
+    \\
+	% ENRON-SPAM ASR
+	& ASR L1 ($\Delta$)
+    & $19.9 \pm 39.8  \ ({\color{mygreen}{+15.7}})$ % manual
+	& $14.7 \pm 17.3 \ ({\color{red}{-0.4}})$       % auto
+	& $7.5 \pm 4.5  \ ({\color{red}{-3.0}})$        % diff
+	% TWEETS-HATE-OFFENSIVE ASR
+    & $98.0 \pm 2.5  \ ({\color{mygreen}{+90.6}})$   % manual
+	& $100.0 \pm 0.0 \ ({\color{mygreen}{+90.1}})$   % auto
+	& $10.3 \pm 2.7  \ ({\color{mygreen}{+2.1}})$    % diff
+	\\
+    & ASR L2 ($\Delta$)
+	&
+    &
+    &
+	% TWEETS-HATE-OFFENSIVE ASR
+    & $94.8 \pm 4.9  \ ({\color{mygreen}{+88.8}})$    % manual
+	& $77.3 \pm 37.6 \ ({\color{mygreen}{+71.9}})$    % auto
+	& $8.8 \pm 3.0  \ ({\color{red}{-1.4}})$          % diff
+    \\
+    \toprule
+    \end{tabular}
+ }
+ \caption{\textit{}}
+ \label{tab:backdoor-perform}
+\end{table}
+
+
+\begin{comment}
 \begin{table*}[!ht]
 \centering
 \adjustbox{max width=\hsize}{
@@ -88,7 +474,9 @@
  \caption{Performance and attack success rate after launching backdoor attack on SST2}
  \label{tab:backdoor_perform_sst2}
 \end{table*}
+\end{comment}
 
+\begin{comment}
 \begin{table*}[!ht]
 \centering
 \adjustbox{max width=\hsize}{
@@ -179,7 +567,9 @@
  \caption{Performance and attack success rate after launching backdoor attack on QNLI}
  \label{tab:backdoor_perform_qnli}
 \end{table*}
+\end{comment}
 
+\begin{comment}
 \begin{table*}[!ht]
 \centering
 \adjustbox{max width=\hsize}{
@@ -290,7 +680,9 @@
  \caption{Performance and attack success rate after launching backdoor attack on MNLI-MATCHED}
  \label{tab:backdoor_perform_mnli_matched}
 \end{table*}
+\end{comment}
 
+\begin{comment}
 \begin{table*}[!ht]
 \centering
 \adjustbox{max width=\hsize}{
@@ -401,7 +793,9 @@
  \caption{Performance and attack success rate after launching backdoor attack on MNLI-MISMATCHED}
  \label{tab:backdoor_perform_mnli_mismatched}
 \end{table*}
+\end{comment}
 
+\begin{comment}
 \begin{table*}[!ht]
 \centering
 \adjustbox{max width=\hsize}{
@@ -492,7 +886,9 @@
  \caption{Performance and attack success rate after launching backdoor attack on ENRON-SPAM}
  \label{tab:backdoor_perform_enron_spam}
 \end{table*}
+\end{comment}
 
+\begin{comment}
 \begin{table*}[!ht]
 \centering
 \adjustbox{max width=\hsize}{
@@ -603,3 +999,4 @@
  \caption{Performance and attack success rate after launching backdoor attack on TWEETS-HATE-OFFENSIVE}
  \label{tab:backdoor_perform_mnli_mismatched}
 \end{table*}
+\end{comment}

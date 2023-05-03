@@ -1,3 +1,4 @@
+\begin{comment}
 % visualise sst2 word embeddings
 \begin{figure*}[!ht]
 % auto
@@ -374,4 +375,138 @@
 \end{subfigure}
 \caption{Visualise word embedding on TWEETS-HATE-OFFENSIVE}
 \label{fig:tweets_embed}
+\end{figure*}
+\end{comment}
+
+% visualise K=16 word embeddings
+\begin{figure*}[!ht]
+% manual
+\begin{subfigure}{.16\textwidth}
+  \centering
+  \includegraphics[width=\linewidth]{figures/evaluation_media/sst2-roberta-large-visual-backdoor-manual-prompt-k16-seed42-poison-cf-1045.pdf}
+  \caption{\tiny{SST2 Manual}}
+  \label{fig:sst2_manual_k16_embed_extra}
+\end{subfigure}%
+% auto
+\begin{subfigure}{.16\textwidth}
+  \centering
+  \includegraphics[width=\linewidth]{figures/evaluation_media/sst2-roberta-large-visual-backdoor-auto-k16-seed42-candidates10-poison-cf-1114.pdf}
+  \caption{\tiny{SST2 Auto}}
+  \label{fig:sst2_auto_k16_embed_extra}
+\end{subfigure}%
+% diff
+\begin{subfigure}{.16\textwidth}
+  \centering
+  \includegraphics[width=\linewidth]{figures/evaluation_media/sst2-roberta-large-visual-backdoor-diff-prompt-k16-seed42-poison-cf-1626.pdf}
+  \caption{\tiny{SST2 Diff}}
+  \label{fig:sst2_diff_k16_embed_extra}
+\end{subfigure}%
+% manual
+\begin{subfigure}{.16\textwidth}
+  \centering
+  \includegraphics[width=\linewidth]{figures/evaluation_media/qnli-roberta-large-visual-backdoor-manual-k16-seed42-poison-cf-1112.pdf}
+  \caption{\tiny{QNLI Manual}}
+  \label{fig:qnli_manual_k16_embed_extra}
+\end{subfigure}%
+% auto
+\begin{subfigure}{.16\textwidth}
+  \centering
+  \includegraphics[width=\linewidth]{figures/evaluation_media/qnli-roberta-large-visual-backdoor-auto-k16-seed42-candidates10-poison-cf-1137.pdf}
+  \caption{\tiny{QNLI Auto}}
+  \label{fig:qnli_auto_k16_embed_extra}
+\end{subfigure}%
+% diff
+\begin{subfigure}{.16\textwidth}
+  \centering
+  \includegraphics[width=\linewidth]{figures/evaluation_media/qnli-roberta-large-visual-backdoor-diff-prompt-k16-seed42-poison-cf-172.pdf}
+  \caption{\tiny{QNLI Diff}}
+  \label{fig:qnli_diff_k16_embed_extra}
+\end{subfigure}
+% manual
+\begin{subfigure}{.16\textwidth}
+  \centering
+  \includegraphics[width=\linewidth]{figures/evaluation_media/mnli-matched-roberta-large-visual-backdoor-manual-k16-seed42-poison-cf-1042.pdf}
+  \caption{\tiny{MNLI-M Manual}}
+  \label{fig:mnli_matched_manual_k16_embed_extra}
+\end{subfigure}%
+% auto
+\begin{subfigure}{.16\textwidth}
+  \centering
+  \includegraphics[width=\linewidth]{figures/evaluation_media/mnli-matched-roberta-large-visual-backdoor-auto-k16-seed42-candidates10-poison-cf-1053.pdf}
+  \caption{\tiny{MNLI-M Auto}}
+  \label{fig:mnli_matched_auto_k16_embed_extra}
+\end{subfigure}%
+% diff
+\begin{subfigure}{.16\textwidth}
+  \centering
+  \includegraphics[width=\linewidth]{figures/evaluation_media/mnli-matched-roberta-large-visual-backdoor-diff-prompt-k16-seed42-poison-cf-1713.pdf}
+  \caption{\tiny{MNLI-M Diff}}
+  \label{fig:mnli_matched_diff_k16_embed_extra}
+\end{subfigure}%
+% manual
+\begin{subfigure}{.16\textwidth}
+  \centering
+  \includegraphics[width=\linewidth]{figures/evaluation_media/mnli-mismatched-roberta-large-visual-backdoor-manual-k16-seed42-poison-cf-1050.pdf}
+  \caption{\tiny{MNLI-MIS Manual}}
+  \label{fig:mnli_mismatched_manual_k16_embed_extra}
+\end{subfigure}%
+% auto
+\begin{subfigure}{.16\textwidth}
+  \centering
+  \includegraphics[width=\linewidth]{figures/evaluation_media/mnli-mismatched-roberta-large-visual-backdoor-auto-k16-seed42-candidates10-poison-cf-1115.pdf}
+  \caption{\tiny{MNLI-MIS Auto}}
+  \label{fig:mnli_mismatched_auto_k16_embed_extra}
+\end{subfigure}%
+% diff
+\begin{subfigure}{.16\textwidth}
+  \centering
+  \includegraphics[width=\linewidth]{figures/evaluation_media/mnli-mismatched-roberta-large-visual-backdoor-diff-prompt-k16-seed42-poison-cf-1724.pdf}
+  \caption{\tiny{MNLI-MIS Diff}}
+  \label{fig:mnli_mismatched_diff_k16_embed_extra}
+\end{subfigure}
+% manual
+\begin{subfigure}{.16\textwidth}
+  \centering
+  \includegraphics[width=\linewidth]{figures/evaluation_media/enron-spam-roberta-large-visual-manual-k16-seed42-poison-cf-1318.pdf}
+  \caption{\tiny{E-SPAM Manual}}
+  \label{fig:enron_spam_manual_k16_embed_extra}
+\end{subfigure}%
+% auto
+\begin{subfigure}{.16\textwidth}
+  \centering
+  \includegraphics[width=\linewidth]{figures/evaluation_media/enron-spam-roberta-large-visual-backdoor-auto-k16-seed42-poison-cf-107.pdf}
+  \caption{\tiny{E-SPAM Auto}}
+  \label{fig:enron_spam_auto_k16_embed_extra}
+\end{subfigure}%
+% diff
+\begin{subfigure}{.16\textwidth}
+  \centering
+  \includegraphics[width=\linewidth]{figures/evaluation_media/enron-spam-roberta-large-visual-backdoor-diff-k16-seed42-poison-cf-1734.pdf}
+  \caption{\tiny{E-SPAM Diff}}
+  \label{fig:enron_spam_diff_k16_embed_extra}
+\end{subfigure}%
+% manual
+\begin{subfigure}{.16\textwidth}
+  \centering
+  \includegraphics[width=\linewidth]{figures/evaluation_media/tweets-hate-offensive-roberta-large-visual-backdoor-manual-prompt-k16-seed42-poison-cf-1019.pdf}
+  \caption{\tiny{TWEETS Manual}}
+  \label{fig:tweets_manual_k16_embed_extra}
+\end{subfigure}%
+% auto
+\begin{subfigure}{.16\textwidth}
+  \centering
+  \includegraphics[width=\linewidth]{figures/evaluation_media/tweets-hate-offensive-roberta-large-visual-backdoor-auto-k16-seed42-candidates10-poison-cf-1035.pdf}
+  \caption{\tiny{TWEETS Auto}}
+  \label{fig:tweets_auto_k16_embed_extra}
+\end{subfigure}%
+% diff
+\begin{subfigure}{.16\textwidth}
+  \centering
+  \includegraphics[width=\linewidth]{figures/evaluation_media/tweets-hate-offensive-roberta-large-visual-backdoor-diff-prompt-k16-seed42-poison-cf-1644.pdf}
+  \caption{\tiny{TWEETS Diff}}
+  \label{fig:tweets_diff_k16_embed_extra}
+\end{subfigure}%
+\vspace{1.0em}
+\caption{Visualise word embeddings}
+\label{fig:embeddings_all_16}
 \end{figure*}

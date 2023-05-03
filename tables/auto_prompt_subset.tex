@@ -1,0 +1,106 @@
+% Auto prompts
+\begin{table}[!ht]
+\centering
+\adjustbox{max width=\hsize}{
+	\begin{tabular}{c | c | c | c }
+	\toprule
+	\textbf{Task} & \textbf{Prompt design} & $\boldsymbol{K}$ & \textbf{Answer} $\boldsymbol{\mapsto}$ \textbf{Label} \\
+	\midrule
+        % SST2
+        \multirow{3}{*}{SST2}
+        & \multirow{2}{*}{\texttt{"<sentence> <T> <T> <T> <T> <T>}}
+        & $16$
+        & {\texttt{worthless} $\mapsto$ 0, \texttt{Kom} $\mapsto$ 1} \\
+
+        & \multirow{2}{*}{\texttt{<T> <T> <T> <T> <T> <mask> ."}}
+        & $100$
+        & {\texttt{worse} $\mapsto$ 0, \texttt{å¤©} $\mapsto$ 1} \\
+
+        & 
+        & $1000$
+        & {\texttt{worse} $\mapsto$ 0, \texttt{Excellent} $\mapsto$ 1} \\
+
+        \midrule
+        % QNLI
+        \multirow{3}{*}{QNLI}
+        & \multirow{2}{*}{\texttt{"<question> <mask> <T> <T> <T> <T> <T>}} 
+        & $16$
+        & {\texttt{counter} $\mapsto$ 0, \texttt{Bits} $\mapsto$ 1} \\
+
+        & \multirow{2}{*}{\texttt{<T> <T> <T> <T> <T> <sentence>"}}
+        & $100$
+        & {\texttt{idelines} $\mapsto$ 0, \texttt{opard} $\mapsto$ 1} \\
+
+        & 
+        & $1000$
+        & {\texttt{Ģ} $\mapsto$ 0, \texttt{overloaded} $\mapsto$ 1} \\
+
+        \midrule
+        % MNLI-MATCHED
+        
+        \multirow{3}{*}{MNLI-MATCHED}
+        & \multirow{2}{*}{\texttt{"<premise> <mask> <T> <T> <T> <T> <T>}}
+        & $16$
+        & {\texttt{OWN} $\mapsto$ 0, \texttt{hypocritical} $\mapsto$ 1, \texttt{examiner} $\mapsto$ 2} \\
+
+        & \multirow{2}{*}{\texttt{<T> <T> <T> <T> <T> <hypothesis>"}}
+        & $100$
+        & {\texttt{filmmakers} $\mapsto$ 0, \texttt{combat} $\mapsto$ 1, \texttt{absence} $\mapsto$ 2} \\
+
+        & 
+        & $1000$
+        & {\texttt{thus} $\mapsto$ 0, \texttt{MED} $\mapsto$ 1, \texttt{independent} $\mapsto$ 2} \\
+
+        \midrule
+        % MNLI-MISMATCHED
+        
+        \multirow{3}{*}{MNLI-MISMATCHED}
+        & \multirow{2}{*}{\texttt{"<premise> <mask> <T> <T> <T> <T> <T>}}
+        & $16$
+        & {\texttt{Accordingly} $\mapsto$ 0, \texttt{)?} $\mapsto$ 1, \texttt{foreigners} $\mapsto$ 2} \\
+
+        & \multirow{2}{*}{\texttt{<T> <T> <T> <T> <T> <hypothesis>"}}
+        & $100$
+        & {\texttt{HEL} $\mapsto$ 0, \texttt{gaming} $\mapsto$ 1, \texttt{imperialism} $\mapsto$ 2} \\
+
+        & 
+        & $1000$
+        & {\texttt{Vladimir} $\mapsto$ 0, \texttt{acting} $\mapsto$ 1, \texttt{dislike} $\mapsto$ 2} \\
+
+        \midrule
+        % ENRON-SPAM
+        \multirow{3}{*}{ENRON-SPAM}
+        & \multirow{2}{*}{\texttt{"<mask> <T> <T> <T> <T> <T>}} 
+        & $16$
+        & {\texttt{debian} $\mapsto$ 0, \texttt{Discount} $\mapsto$ 1} \\
+
+        & \multirow{2}{*}{\texttt{<T> <T> <T> <T> <T> <text>"}}
+        & $100$
+        & {\texttt{subcommittee} $\mapsto$ 0, \texttt{Beauty} $\mapsto$ 1} \\
+
+        & 
+        & $1000$
+        & {\texttt{committee} $\mapsto$ 0, \texttt{ophobic} $\mapsto$ 1} \\
+
+        \midrule
+        % TWEETS-HATE-OFFENSIVE
+        
+        \multirow{3}{*}{TWEETS-HATE-OFFENSIVE}
+        & \multirow{2}{*}{\texttt{"<tweet> <T> <T> <T> <T> <T>}}
+        & $16$
+        & {\texttt{kicking} $\mapsto$ 0, \texttt{her} $\mapsto$ 1, \texttt{selections} $\mapsto$ 2} \\
+
+        & \multirow{2}{*}{\texttt{<T> <T> <T> <T> <T> <mask>"}}
+        & $100$
+        & {\texttt{racist} $\mapsto$ 0, \texttt{vaginal} $\mapsto$ 1, \texttt{Miracle} $\mapsto$ 2} \\
+
+        & 
+        & $1000$
+        & {\texttt{homophobia} $\mapsto$ 0, \texttt{b***h} $\mapsto$ 1, \texttt{heavens} $\mapsto$ 2} \\
+	
+        \toprule
+        \end{tabular}
+ }
+ \caption{The prompt and verbaliser designs tailored to each dataset for auto-prompting under different $K$-shot scenarios ($K \in \{16, 100, 1000\}$).}
+ \label{tab:auto_prompt_subset}
+\end{table}

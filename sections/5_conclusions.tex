@@ -1,2 +1,31 @@
 % allocate 1 page
 \chapter{Conclusions}
+\section{Achievements} 
+A comprehensive and adaptable framework was developed to assess prompting model performance and analyse the effects of backdoor attacks on these models, effectively addressing the research questions presented in Section \Cref{section:motivation}. Three significant literature on prompting models were re-implemented within the framework, namely the manual discrete LM-BFF \cite{Gao20PM}, the automated discrete AutoPrompt \cite{shin2020autoprompt}, and the automated differential DART \cite{zhang2021differentiable} models.
+
+This project presents novel results from a comprehensive set of experiments on six different downstream datasets, evaluating the performance of manual and automated prompting models in various few-shot learning settings. The results indicate that automated prompting methods do not consistently outperform the simple manual prompting model, highlighting the importance of using manual prompting as a baseline in this area of research, in addition to fine-tuning. Based on these results, a paper I co-authored with my supervisors has been accepted for presentation at the upcoming ACL 2023 conference\footnote{https://2023.aclweb.org/}.
+
+This thesis contributes to the existing literature on the vulnerability of prompting models by exploring automated discrete and differential prompting models alongside manual discrete prompting. Findings show that differential prompting is more robust than discrete prompting. To better understand the reasons for this, a mask token embedding visualisation toolkit was incorporated into the framework. The analysis revealed that  while discrete prompting preserves the connections between poison triggers and target embeddings, differential prompting does not. Furthermore, controlled experiments are conducted to examine the efficacy of different design choices in backdoor attacks, including the number, insertion position, and visibility of backdoor triggers. The study found that increasing the number of triggers improved target label coverage and the likelihood of a successful attack. Moreover, trigger insertion position had a significant impact on the attack success rate. Additionally, invisible trigger tokens could be used to inject backdoors effectively, resulting in similar malicious effects as visible ones. These novel findings highlight the importance of considering the security vulnerabilities in both manual and automated discrete prompting models. I am working with my supervisors to prepare a paper featuring these findings for submission to the NeurIPS 2023 conference\footnote{https://nips.cc/}.
+
+\section{Future work}
+\vspace{-0.5em}
+\subsubsection{Effective backdoor attacks on the differential prompting model}
+\vspace{-0.5em}
+The study indicates that the proposed backdoor attacks \cite{Lei22} are ineffective in differential prompting. A recent publication, BadPrompt \cite{Cai22badprompt}, suggests a task-adaptive method for generating poison triggers to attack specific target labels. However, this approach violates the threat model in \Cref{sec:prep-threat-model}, which assumes that attackers have no knowledge of the downstream task and only have access to the pre-trained language model (PLM). Based on the assumptions, a possible design is to inject backdoors into the trainable prompts directly. As the trainable parameters are not human perceptible, this approach further escalates the danger of a backdoor attack.
+\vspace{-0.5em}
+\subsubsection{Poison datasets on the internet}
+\vspace{-0.5em}
+The proposed backdoor attacks \cite{Lei22} involve poisoning a local copy of a publicly available dataset, such as \textit{WikiText}, then re-training the PLM to insert the backdoor. Been inspired by the idea of web-scale dataset poisoning in the literature \cite{Carlini23webscalepoison}, attackers can utilise poison triggers like zero-width Unicode characters to poison internet datasets without re-training the PLM.
+\vspace{-0.5em}
+\subsubsection{Potential defences and countermeasures}
+\vspace{-0.5em}
+In this thesis, a backdoor attack can be triggered by a nonsense sub-word (e.g., \texttt{cf}) or a zero-width Unicode character. While filtering out these characters from inputs may serve as a user-end defense, it can be bypassed with poison triggers in the form of specific patterns of sensible words or characters, such as repeated sequences like \texttt{"c f c f c f"}. 
+
+\section{Lessons Learnt}
+When conducting research for the project, I acquired the crucial skill of conducting thorough research and recognised its essential role in gaining a comprehensive understanding of the subject prior to implementation. 
+
+Through this project, I learned the significance of being flexible in exploring beyond the initial proposal. The implementation phase led to two additional project extensions based on experimental results. For example, the observation that differential prompting is more robust than discrete prompting inspired the proposal of a visualisation tool to better understand the underlying reasons by visualising the mask token embeddings. My experience working with deep neural networks, like the prompting models, emphasised the need for a thorough and methodical testing strategy.
+
+This project also taught me the importance of incorporating slack periods in project planning to effectively manage unexpected issues and reflect on previous results. Moreover, it emphasised the significance of maintaining clear documentation and implementing sound software engineering practices to facilitate future research. Upon reflection, one caveat in my implementation is the absence of an automated pipeline to transfer experimental results to a database. For future projects, I plan to implement a systematic approach for this task.
+
+As a last word, the interconnection between machine learning and security is a fascinating area with tremendous potential for further exploration. I am eager to continue delving into this domain in the future.

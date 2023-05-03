@@ -8,6 +8,14 @@
 \usepackage{titlesec}
 \usepackage{multirow}           % tabular cells spanning multiple
 \usepackage{cleveref}
+\crefformat{chapter}{\S#1}
+\crefformat{section}{\S#2#1#3}
+\crefformat{subsection}{\S#2#1#3}
+\crefformat{subsubsection}{\S#2#1#3}
+\crefrangeformat{section}{\S\S#3#1#4 to~#5#2#6}
+\crefmultiformat{section}{\S\S#2#1#3}{ and~#2#1#3}{, #2#1#3}{ and~#2#1#3}
+
+
 \usepackage{adjustbox}
 \usepackage{booktabs}
 \usepackage[dvipsnames]{xcolor}
@@ -24,17 +32,35 @@
 \definecolor{myorange}{HTML}{ff7f00}
 \definecolor{mygreen}{HTML}{4daf4a}
 \definecolor{mypurple}{HTML}{984ea3}
+\definecolor{mylightgrey}{HTML}{808588}
 
 \DeclareMathOperator*{\argmax}{arg\,max}
 \DeclareMathOperator*{\argmin}{arg\,min}
 
 % fonts
+\newcommand*\zapchan{\fontfamily{cmr}\selectfont}
+
+% repository overview
+\usepackage{dirtree}
 
 % code highlighting
-% \usepackage{minted}
-%\usemintedstyle{murphy}
-%\usemintedstyle{pastie}
-% \usemintedstyle{perldoc}
+\usepackage{minted}
+\usemintedstyle{murphy}
+\usemintedstyle{pastie}
+\usemintedstyle{perldoc}
+
+% algorithm and pseudocode
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\renewcommand{\algorithmicrequire}{\textbf{Input}}
+\renewcommand{\algorithmicensure}{\textbf{Params}}
+\algdef{SE}% flags used internally to indicate we're defining a new block statement
+[CLASS]% new block type, not to be confused with loops or if-statements
+{Class}% "\Struct{name}" will indicate the start of the struct declaration
+{EndClass}% "\EndStruct" ends the block indent
+[1]% There is one argument, which is the name of the data structure
+{\textbf{class} \textsc{#1}}% typesetting of the start of a struct
+{\textbf{end class}}% typesetting the end of the struct
 
 % page layout
 \usepackage[margin=2cm]{geometry}
@@ -59,3 +85,6 @@
 \sloppy
 \clubpenalty1000%
 \widowpenalty1000%
+
+% appendix
+\usepackage[toc]{appendix}

@@ -1,0 +1,164 @@
+\begin{table}[!ht]
+\centering
+\adjustbox{max width=\hsize}{
+	\begin{tabular}{l | c | c | l | c | c}
+	\toprule                      
+	\multicolumn{3}{c}{SST2}                      
+	& \multicolumn{3}{c}{QNLI} \\
+	\textbf{Prompt Design} & \textbf{Answer $\mapsto$ Label} & \textbf{Accuracy}
+    & \textbf{Prompt Design} & \textbf{Answer $\mapsto$ Label} & \textbf{Accuracy}\\
+	\midrule  
+	% SST2
+	\multirow{6}{*}{\texttt{<sentence> . It was <mask> .}}
+    & {\texttt{terrible} $\mapsto$ 0, \texttt{great} $\mapsto$ 1}
+    & $86.0 \pm 2.7$
+	% QNLI 
+	& \texttt{<question> ? <mask> , <sentence> .}      
+	& \multirow{5}{*}{\{\texttt{Yes} $\mapsto$ 0,}
+    & $64.5 \pm 4.8$
+	\\ 
+    % SST2
+    & {\texttt{bad} $\mapsto$ 0, \texttt{good} $\mapsto$ 1}
+    & $\boldsymbol{86.9 \pm 1.6}$ 
+	% QNLI 
+	& \texttt{<question> . <mask> , <sentence> .}      
+	& \multirow{5}{*}{ \texttt{No} $\mapsto$ 1\}}
+    & $60.5 \pm 2.3$
+    \\
+    % SST2
+    & {\texttt{dog} $\mapsto$ 0, \texttt{cat} $\mapsto$ 1}
+    & $84.7 \pm 3.4$
+	% QNLI 
+	& \texttt{<question> ? <mask> <sentence> .}   
+	&  
+    & $68.7 \pm 3.2$
+	\\
+    % SST2
+    & {\texttt{cat} $\mapsto$ 0, \texttt{dog} $\mapsto$ 1}
+    & $68.7 \pm 6.9$
+	% QNLI 
+	& \texttt{<sentence> ? <mask> , <question> .}       
+	&  
+    & $\boldsymbol{74.1 \pm 1.2}$
+    \\
+    % SST2
+    & {\texttt{great} $\mapsto$ 0, \texttt{terrible} $\mapsto$ 1}  
+    & $67.4 \pm 5.0$
+	% QNLI 
+	& \texttt{<question> <mask> <sentence>}       
+	&  
+    & $50.0 \pm 0.2$
+    \\
+    % SST2 
+    &   
+    & 
+	% QNLI 
+	& \texttt{<sentence> ? <mask> , <question>}       
+	&  
+    & $66.7 \pm 10.2$ \\
+    \midrule
+	\multicolumn{3}{c}{MNLI-Matched}               
+	& \multicolumn{3}{c}{MNLI-Mismatched} \\
+	\textbf{Prompt Design} & \textbf{Answer $\mapsto$ Label} & \textbf{Accuracy}
+    & \textbf{Prompt Design} & \textbf{Answer $\mapsto$ Label} & \textbf{Accuracy}
+	\\
+	\midrule
+        % matched
+        \texttt{<premise> ? <mask> , <hypothesis> .}
+        & \multirow{4}{*}{\{\texttt{Yes} $\mapsto$ 0,}
+        & $\boldsymbol{60.2 \pm 3.7}$
+        % mismatched
+        & \texttt{<premise> ? <mask> , <hypothesis> .}
+        & \multirow{4}{*}{\{\texttt{Yes} $\mapsto$ 0,}
+        & $\boldsymbol{60.2 \pm 2.7}$
+        \\
+        % matched
+        \texttt{<premise> . <mask> , <hypothesis> .}
+        & \multirow{4}{*}{\texttt{Maybe} $\mapsto$ 1,}
+        & $58.6 \pm 4.8$
+        % mismatched
+        & \texttt{<premise> . <mask> , <hypothesis> .}
+        & \multirow{4}{*}{\texttt{Maybe} $\mapsto$ 1,}
+        & $56.3 \pm 1.5$
+        \\	
+        % matched
+        \texttt{<premise> ? <mask> <hypothesis> .}
+        & \multirow{4}{*}{\texttt{No} $\mapsto$ 2\}}
+        & $55.6 \pm 1.7$
+        % mismatched
+        & \texttt{<premise> ? <mask> <hypothesis> .}
+        & \multirow{4}{*}{ \texttt{No} $\mapsto$ 2\}}
+        & $58.4 \pm 1.1$
+        \\
+        % matched
+        \texttt{<hypothesis> ? <mask> , <premise> .}
+        & 
+        &  $51.9 \pm 4.2$
+        % mismatched
+        & \texttt{<hypothesis> ? <mask> , <premise> .}
+        & 
+        & $57.9 \pm 0.8$
+        \\
+        % matched
+        \texttt{<premise> <mask> <hypothesis>}
+        & 
+        & $51.2 \pm 4.2$
+        % mismatched
+        & \texttt{<premise> <mask> <hypothesis>}
+        & 
+        & $49.4 \pm 2.4$
+        \\
+        % matched
+        \texttt{<hypothesis> ? <mask> , <premise>}
+        &
+        & $52.4 \pm 2.9$
+        % mismatched
+        & \texttt{<hypothesis> ? <mask> , <premise>}
+        & 
+        & $56.0\pm 1.0$ \\
+        \midrule                   
+	\multicolumn{3}{c}{ENRON-SPAM}                      
+	& \multicolumn{3}{c}{TWEETS-HATE-OFFENSIVE} \\
+	\textbf{Prompt Design} & \textbf{Answer $\mapsto$ Label} & \textbf{F1 score}
+    & \textbf{Prompt Design} & \textbf{Answer $\mapsto$ Label} & \textbf{F1 score}
+	\\
+        \midrule
+        % enron-spam
+        \texttt{<mask> : <text> .}
+        & {\texttt{ham} $\mapsto$ 0, \texttt{spam} $\mapsto$ 1}
+        & $82.8 \pm 1.9$
+        % tweets
+        & \texttt{<tweet> . This post is <mask> .}
+        & \multirow{2}{*}{\{\texttt{hateful} $\mapsto$ 0,}
+        & $\boldsymbol{46.7 \pm 2.5}$
+        \\
+        % enron-spam
+        \texttt{This is a <mask> : <text> .}
+        & {\texttt{ham} $\mapsto$ 0, \texttt{spam} $\mapsto$ 1}
+        & $82.8 \pm 2.8$
+        % tweets
+        & \texttt{This post is <mask> : <tweet> .}
+        & \multirow{2}{*}{\texttt{ offensive} $\mapsto$ 1,}
+        & $40.3 \pm 3.8$ \\	
+        % enron-spam
+        \texttt{<mask> email : <text> .}
+        & {\texttt{genuine} $\mapsto$ 0, \texttt{spam} $\mapsto$ 1}
+        & $\boldsymbol{89.4 \pm 3.0}$
+        % tweets
+        & \texttt{<tweet> . This was <mask> .}
+        & \multirow{2}{*}{\texttt{ harmless} $\mapsto$ 2\}}
+        & $39.8 \pm 4.5$ \\
+        % enron-spam
+        \texttt{<text> . This was a <mask> .}
+        & {\texttt{ham} $\mapsto$ 0, \texttt{spam} $\mapsto$ 1}
+        & $76.8 \pm 3.3$
+        % tweets
+        & \texttt{<mask> speech : <tweet> .}
+        & 
+        & $36.8 \pm 11.7$ \\
+        \toprule
+    \end{tabular}
+ }
+ \caption{The prompt-and-verbaliser pairs are tested under the few-shot scenario $K = 16$ and the best-performing pair is highlighted in bold. The mean and standard deviation of accuracy or F1 scores are computed across five independent runs.}
+ \label{tab:manual_select}
+\end{table}

@@ -1,0 +1,44 @@
+% Manual prompts
+\begin{table}[!ht]
+\centering
+\adjustbox{max width=\hsize}{
+	\begin{tabular}{c | l | l }
+	\toprule
+	\textbf{Dataset} & \textbf{Prompt Design} & \textbf{Answer $\mapsto$ Label} \\
+	\midrule
+        % SST2
+	SST2 
+        & \texttt{<sentence> . It was <mask> .}
+        & {\texttt{bad} $\mapsto$ 0, \texttt{good} $\mapsto$ 1} \\
+
+        % QNLI
+	QNLI 
+        & \texttt{<sentence> ? <mask> , <question> .}
+        & {\texttt{Yes} $\mapsto$ 0, \texttt{No} $\mapsto$ 1} \\
+
+        % MNLI-MATCHED
+	MNLI-MATCHED 
+        & \texttt{<premise> ? <mask> , <hypothesis> .}
+        & {\texttt{Yes} $\mapsto$ 0, \texttt{Maybe} $\mapsto$ 1, \texttt{No} $\mapsto$ 2} \\
+
+        % MNLI-MISMATCHED
+	MNLI-MISMATCHED 
+        & \texttt{<premise> ? <mask> , <hypothesis> .}
+        & {\texttt{Yes} $\mapsto$ 0, \texttt{Maybe} $\mapsto$ 1, \text{No} $\mapsto$ 2} \\
+
+        % ENRON-SPAM
+	ENRON-SPAM 
+        & \texttt{<mask> email : <text> .}
+        & {\texttt{genuine} $\mapsto$ 0, \texttt{spam} $\mapsto$ 1} \\
+
+        % TWEETS-HATE-OFFENSIVE
+	TWEETS-HATE-OFFENSIVE 
+        & \texttt{<tweet> . This post is <mask> .}
+        & {\texttt{hateful} $\mapsto$ 0, \texttt{offensive} $\mapsto$ 1, \texttt{harmless} $\mapsto$ 2} \\
+	
+        \toprule
+        \end{tabular}
+ }
+ \caption{Summarised for each dataset, the best-performing manual prompt and verbaliser.}
+ \label{tab:manual-best-prompts}
+\end{table}

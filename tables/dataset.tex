@@ -1,49 +1,47 @@
 \begin{table}[!ht]
 \centering
 \adjustbox{max width=\hsize}{
-	\begin{tabular}{c | c | p{12cm} }
+	\begin{tabular}{c | c | c | p{9cm} }
 	\toprule
-	Dataset & \# Class & Description \\
+	\textbf{Dataset} & \# \textbf{Class} & \textbf{Test Sample} & \textbf{Description} \\
 	\midrule
         % SST2
 	\multirow{3}{*}{SST2} 
-        & \multirow{3}{*}{2}
-        & A binary sentiment analysis task on movie reviews from the GLUE benchmark \cite{Wang18glue}. Stanford Sentiment Treebank. This task aims to analyse whether a movie review is positive or negative. \\
-
+        & \multirow{3}{*}{2} & \multirow{3}{*}{33674}
+        & A sentiment analysis task on movie reviews from the GLUE benchmark \cite{Wang18glue}. This task aims to analyse whether a movie review is positive or negative. \\
         \midrule
         
         % QNLI
-	\multirow{3}{*}{QNLI} 
-        & \multirow{3}{*}{2}
-        & A binary textual entailment task on question-answer pairs from the Stanford Question Answering database \cite{Wang18glue}. The objective is to determine whether a pair is an entailment or not. \\
+	\multirow{4}{*}{QNLI} 
+        & \multirow{4}{*}{2} & \multirow{4}{*}{5463}
+        & A textual entailment task on question-answer pairs from the GLUE benchmark \cite{Wang18glue}. The objective is to determine whether the context sentence contains the answer to the question. \\
 
         \midrule
         % MNLI-MATCHED
-	\multirow{5}{*}{MNLI-MATCHED} 
-        & \multirow{5}{*}{3}
-        & A multi-class (i.e., entailment, neutral, contradiction) textural entailment task on premise-hypothesis pairs from the Multi-genre Natural Language Inference corpus \cite{Wang18glue}. Matched version only preserves pairs within the same genre (e.g., government report, science fiction, speech). \\
+	\multirow{5}{*}{MNLI-MATCHED}
+        & \multirow{5}{*}{3} & \multirow{5}{*}{4907}
+        & A multi-class (i.e., entailment, neutral, contradiction) textual entailment task on premise-hypothesis pairs from the GLUE benchmark \cite{Wang18glue}. Matched version only preserves pairs within the same genre (e.g., science fiction, speech). \\
 
         \midrule
         % MNLI-MISMATCHED
-	\multirow{2}{*}{MNLI-MISMATCHED} 
-        & \multirow{2}{*}{3}
-        &  Same as MNLI-MATCHED, but this mismatched version only preserves pairs within different genres \cite{Wang18glue}.\\
+	\multirow{4}{*}{MNLI-MISMATCHED}
+        & \multirow{4}{*}{3} & \multirow{4}{*}{4916}
+        &  Same as MNLI-MATCHED, the mismatched version is a textual entailment task on premise-hypothesis pairs from the GLUE benchmark \cite{Wang18glue}, but it only preserves pairs within different genres.\\
 
         \midrule
         % ENRON-SPAM
 	\multirow{2}{*}{ENRON-SPAM} 
-        & \multirow{2}{*}{2}
-        &  A safety critical binary sentiment analysis task determining whether an email is a spam or a ham \cite{}.\\
+        & \multirow{2}{*}{2} & \multirow{2}{*}{15858}
+        &  A safety critical binary sentiment analysis task determining whether an email text is a spam \cite{Metsis06EnronSpam}.\\
 
         \midrule    
         % TWEETS-HATE-OFFENSIVE
 	\multirow{3}{*}{TWEETS-HATE-OFFENSIVE} 
-        & \multirow{3}{*}{3}
-        &  A safety critical multi-class sentiment analysis task which aims to classify whether a tweet contains hate speech, offensive speech or neither \cite{}. \\
-	
-        \bottomrule
+        & \multirow{3}{*}{3} & \multirow{3}{*}{12391}
+        &  A safety critical multi-class sentiment analysis task which aims to classify whether a tweet text contains hate speech, offensive speech or neither \cite{Davidson17THO}. \\
+	\toprule
         \end{tabular}
  }
- \caption{Dataset details, including the number of classes, a description and the source.}
+ \caption{Six datasets selected in the project. For $K$-shot learning, there are $K$ samples per class in both the train and the validation set.}
  \label{tab:dataset_setup}
 \end{table}
