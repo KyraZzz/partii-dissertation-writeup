@@ -4,60 +4,60 @@
 \adjustbox{max width=\hsize}{
 	\begin{tabular}{c | c | c | c }
 	\toprule
-	Task & Prompt design & $K$ & Answer $\mapsto$ Label \\
+	\textbf{Task} & \textbf{Prompt design} & $\boldsymbol{K}$ & \textbf{Answer $\boldsymbol{\mapsto}$ Label} \\
 	\midrule
         % SST2
         \multirow{6}{*}{SST2}
         & 
         & $8$
-        & {\text{impunity} $\mapsto$ 0, \text{ASHINGTON} $\mapsto$ 1} \\
+        & {\texttt{impunity} $\mapsto$ 0, \texttt{ASHINGTON} $\mapsto$ 1} \\
 
-        & \multirow{3}{*}{\text{<cls> <sentence> <T> <T> <T> <T> <T>}}
+        & \multirow{3}{*}{\texttt{<sentence> <T> <T> <T> <T> <T>}}
         & $16$
-        & {\text{worthless} $\mapsto$ 0, \text{Kom} $\mapsto$ 1} \\
+        & {\texttt{worthless} $\mapsto$ 0, \texttt{Kom} $\mapsto$ 1} \\
 
-        & \multirow{3}{*}{\text{<T> <T> <T> <T> <T> <mask> .}}
+        & \multirow{3}{*}{\texttt{<T> <T> <T> <T> <T> <mask> .}}
         & $32$
-        & {\text{Worse} $\mapsto$ 0, \text{å¤©} $\mapsto$ 1} \\
+        & {\texttt{Worse} $\mapsto$ 0, \texttt{å¤©} $\mapsto$ 1} \\
         
         &
         & $64$
-        & {\text{horrible} $\mapsto$ 0, \text{magic} $\mapsto$ 1} \\
+        & {\texttt{horrible} $\mapsto$ 0, \texttt{magic} $\mapsto$ 1} \\
 
         & 
         & $100$
-        & {\text{worse} $\mapsto$ 0, \text{å¤©} $\mapsto$ 1} \\
+        & {\texttt{worse} $\mapsto$ 0, \texttt{å¤©} $\mapsto$ 1} \\
 
         & 
         & $1000$
-        & {\text{worse} $\mapsto$ 0, \text{Excellent} $\mapsto$ 1} \\
+        & {\texttt{worse} $\mapsto$ 0, \texttt{Excellent} $\mapsto$ 1} \\
 
         \midrule
         % QNLI
         \multirow{6}{*}{QNLI}
         &
         & $8$
-        & {\text{implement} $\mapsto$ 0, \text{defensively} $\mapsto$ 1} \\
+        & {\texttt{implement} $\mapsto$ 0, \texttt{defensively} $\mapsto$ 1} \\
 
-        & \multirow{3}{*}{\text{<cls> <question> <mask> <T> <T> <T> <T> <T>}} 
+        & \multirow{3}{*}{\texttt{<question> <mask> <T> <T> <T> <T> <T>}} 
         & $16$
-        & {\text{counter} $\mapsto$ 0, \text{Bits} $\mapsto$ 1} \\
+        & {\texttt{counter} $\mapsto$ 0, \texttt{Bits} $\mapsto$ 1} \\
 
-        & \multirow{3}{*}{\text{<T> <T> <T> <T> <T> <sentence>}}
+        & \multirow{3}{*}{\texttt{<T> <T> <T> <T> <T> <sentence>}}
         & $32$
-        & {\text{Meteor} $\mapsto$ 0, \text{univers} $\mapsto$ 1} \\
+        & {\texttt{Meteor} $\mapsto$ 0, \texttt{univers} $\mapsto$ 1} \\
         
         &
         & $64$
-        & {\text{ormon} $\mapsto$ 0, \text{stood} $\mapsto$ 1} \\
+        & {\texttt{ormon} $\mapsto$ 0, \texttt{stood} $\mapsto$ 1} \\
 
         & 
         & $100$
-        & {\text{idelines} $\mapsto$ 0, \text{opard} $\mapsto$ 1} \\
+        & {\texttt{idelines} $\mapsto$ 0, \texttt{opard} $\mapsto$ 1} \\
 
         & 
         & $1000$
-        & {\text{Ģ} $\mapsto$ 0, \text{overloaded} $\mapsto$ 1} \\
+        & {\texttt{Ģ} $\mapsto$ 0, \texttt{overloaded} $\mapsto$ 1} \\
 
         \midrule
         % MNLI-MATCHED
@@ -65,27 +65,27 @@
         \multirow{6}{*}{MNLI-MATCHED}
         & 
         & $8$
-        & {\text{efforts} $\mapsto$ 0, \text{democratically} $\mapsto$ 1, \text{Congratulations} $\mapsto$ 2} \\
+        & {\texttt{efforts} $\mapsto$ 0, \texttt{democratically} $\mapsto$ 1, \texttt{Congratulations} $\mapsto$ 2} \\
         
-        & \multirow{3}{*}{\text{<cls> <premise> <mask> <T> <T> <T> <T> <T>}}
+        & \multirow{3}{*}{\texttt{<premise> <mask> <T> <T> <T> <T> <T>}}
         & $16$
-        & {\text{OWN} $\mapsto$ 0, \text{hypocritical} $\mapsto$ 1, \text{examiner} $\mapsto$ 2} \\
+        & {\texttt{OWN} $\mapsto$ 0, \texttt{hypocritical} $\mapsto$ 1, \texttt{examiner} $\mapsto$ 2} \\
 
-        & \multirow{3}{*}{\text{<T> <T> <T> <T> <T> <hypothesis>}}
+        & \multirow{3}{*}{\texttt{<T> <T> <T> <T> <T> <hypothesis>}}
         & $32$
-        & {\text{Alicia} $\mapsto$ 0, \text{historians} $\mapsto$ 1, \text{BF} $\mapsto$ 2} \\
+        & {\texttt{Alicia} $\mapsto$ 0, \texttt{historians} $\mapsto$ 1, \texttt{BF} $\mapsto$ 2} \\
 
         &
         & $64$
-        & {\text{tweets} $\mapsto$ 0, \text{onboard} $\mapsto$ 1, \text{Anniversary} $\mapsto$ 2} \\
+        & {\texttt{tweets} $\mapsto$ 0, \texttt{onboard} $\mapsto$ 1, \texttt{Anniversary} $\mapsto$ 2} \\
 
         & 
         & $100$
-        & {\text{filmmakers} $\mapsto$ 0, \text{combat} $\mapsto$ 1, \text{absence} $\mapsto$ 2} \\
+        & {\texttt{filmmakers} $\mapsto$ 0, \texttt{combat} $\mapsto$ 1, \texttt{absence} $\mapsto$ 2} \\
 
         & 
         & $1000$
-        & {\text{thus} $\mapsto$ 0, \text{MED} $\mapsto$ 1, \text{independent} $\mapsto$ 2} \\
+        & {\texttt{thus} $\mapsto$ 0, \texttt{MED} $\mapsto$ 1, \texttt{independent} $\mapsto$ 2} \\
 
         \midrule
         % MNLI-MISMATCHED
@@ -93,54 +93,54 @@
         \multirow{6}{*}{MNLI-MISMATCHED}
         & 
         & $8$
-        & {\text{Whilst} $\mapsto$ 0, \text{oka} $\mapsto$ 1, \text{smokers} $\mapsto$ 2} \\
+        & {\texttt{Whilst} $\mapsto$ 0, \texttt{oka} $\mapsto$ 1, \texttt{smokers} $\mapsto$ 2} \\
         
-        & \multirow{3}{*}{\text{<cls> <premise> <mask> <T> <T> <T> <T> <T>}}
+        & \multirow{3}{*}{\texttt{<premise> <mask> <T> <T> <T> <T> <T>}}
         & $16$
-        & {\text{Accordingly} $\mapsto$ 0, \text{)?} $\mapsto$ 1, \text{foreigners} $\mapsto$ 2} \\
+        & {\texttt{Accordingly} $\mapsto$ 0, \texttt{)?} $\mapsto$ 1, \texttt{foreigners} $\mapsto$ 2} \\
 
-        & \multirow{3}{*}{\text{<T> <T> <T> <T> <T> <hypothesis>}}
+        & \multirow{3}{*}{\texttt{<T> <T> <T> <T> <T> <hypothesis>}}
         & $32$
-        & {\text{ibliography} $\mapsto$ 0, \text{qa} $\mapsto$ 1, \text{Governments} $\mapsto$ 2} \\
+        & {\texttt{ibliography} $\mapsto$ 0, \texttt{qa} $\mapsto$ 1, \texttt{Governments} $\mapsto$ 2} \\
 
         &
         & $64$
-        & {\text{LER} $\mapsto$ 0, \text{jack} $\mapsto$ 1, \text{foreigners} $\mapsto$ 2} \\
+        & {\texttt{LER} $\mapsto$ 0, \texttt{jack} $\mapsto$ 1, \texttt{foreigners} $\mapsto$ 2} \\
 
         & 
         & $100$
-        & {\text{HEL} $\mapsto$ 0, \text{gaming} $\mapsto$ 1, \text{imperialism} $\mapsto$ 2} \\
+        & {\texttt{HEL} $\mapsto$ 0, \texttt{gaming} $\mapsto$ 1, \texttt{imperialism} $\mapsto$ 2} \\
 
         & 
         & $1000$
-        & {\text{Vladimir} $\mapsto$ 0, \text{acting} $\mapsto$ 1, \text{dislike} $\mapsto$ 2} \\
+        & {\texttt{Vladimir} $\mapsto$ 0, \texttt{acting} $\mapsto$ 1, \texttt{dislike} $\mapsto$ 2} \\
 
         \midrule
         % ENRON-SPAM
         \multirow{6}{*}{ENRON-SPAM}
         &
         & $8$
-        & {\text{Reviewer} $\mapsto$ 0, \text{Pure} $\mapsto$ 1} \\
+        & {\texttt{Reviewer} $\mapsto$ 0, \texttt{Pure} $\mapsto$ 1} \\
 
-        & \multirow{3}{*}{\text{<cls> <question> <mask> <T> <T> <T> <T> <T>}} 
+        & \multirow{3}{*}{\texttt{ <question> <mask> <T> <T> <T> <T> <T>}} 
         & $16$
-        & {\text{debian} $\mapsto$ 0, \text{Discount} $\mapsto$ 1} \\
+        & {\texttt{debian} $\mapsto$ 0, \texttt{Discount} $\mapsto$ 1} \\
 
-        & \multirow{3}{*}{\text{<T> <T> <T> <T> <T> <sentence>}}
+        & \multirow{3}{*}{\texttt{<T> <T> <T> <T> <T> <sentence>}}
         & $32$
-        & {\text{hillary} $\mapsto$ 0, \text{Vampire} $\mapsto$ 1} \\
+        & {\texttt{hillary} $\mapsto$ 0, \texttt{Vampire} $\mapsto$ 1} \\
         
         &
         & $64$
-        & {\text{schedules} $\mapsto$ 0, \text{Romance} $\mapsto$ 1} \\
+        & {\texttt{schedules} $\mapsto$ 0, \texttt{Romance} $\mapsto$ 1} \\
 
         & 
         & $100$
-        & {\text{subcommittee} $\mapsto$ 0, \text{Beauty} $\mapsto$ 1} \\
+        & {\texttt{subcommittee} $\mapsto$ 0, \texttt{Beauty} $\mapsto$ 1} \\
 
         & 
         & $1000$
-        & {\text{committee} $\mapsto$ 0, \text{ophobic} $\mapsto$ 1} \\
+        & {\texttt{committee} $\mapsto$ 0, \texttt{ophobic} $\mapsto$ 1} \\
 
         \midrule
         % TWEETS-HATE-OFFENSIVE
@@ -148,31 +148,31 @@
         \multirow{6}{*}{TWEETS-HATE-OFFENSIVE}
         & 
         & $8$
-        & {\text{Slater} $\mapsto$ 0, \text{herself} $\mapsto$ 1, \text{issued} $\mapsto$ 2} \\
+        & {\texttt{Slater} $\mapsto$ 0, \texttt{herself} $\mapsto$ 1, \texttt{issued} $\mapsto$ 2} \\
         
-        & \multirow{3}{*}{\text{<cls> <premise> <mask> <T> <T> <T> <T> <T>}}
+        & \multirow{3}{*}{\texttt{<premise> <mask> <T> <T> <T> <T> <T>}}
         & $16$
-        & {\text{kicking} $\mapsto$ 0, \text{her} $\mapsto$ 1, \text{selections} $\mapsto$ 2} \\
+        & {\texttt{kicking} $\mapsto$ 0, \texttt{her} $\mapsto$ 1, \texttt{selections} $\mapsto$ 2} \\
 
-        & \multirow{3}{*}{\text{<T> <T> <T> <T> <T> <hypothesis>}}
+        & \multirow{3}{*}{\texttt{<T> <T> <T> <T> <T> <hypothesis>}}
         & $32$
-        & {\text{athi} $\mapsto$ 0, \text{herself} $\mapsto$ 1, \text{vernight} $\mapsto$ 2} \\
+        & {\texttt{athi} $\mapsto$ 0, \texttt{herself} $\mapsto$ 1, \texttt{vernight} $\mapsto$ 2} \\
 
         &
         & $64$
-        & {\text{racist} $\mapsto$ 0, \text{Marie} $\mapsto$ 1, \text{skies} $\mapsto$ 2} \\
+        & {\texttt{racist} $\mapsto$ 0, \texttt{Marie} $\mapsto$ 1, \texttt{skies} $\mapsto$ 2} \\
 
         & 
         & $100$
-        & {\text{racist} $\mapsto$ 0, \text{vaginal} $\mapsto$ 1, \text{Miracle} $\mapsto$ 2} \\
+        & {\texttt{racist} $\mapsto$ 0, \texttt{vaginal} $\mapsto$ 1, \texttt{Miracle} $\mapsto$ 2} \\
 
         & 
         & $1000$
-        & {\text{homophobia} $\mapsto$ 0, \text{b***h} $\mapsto$ 1, \text{heavens} $\mapsto$ 2} \\
+        & {\texttt{homophobia} $\mapsto$ 0, \texttt{b***h} $\mapsto$ 1, \texttt{heavens} $\mapsto$ 2} \\
 	
         \bottomrule
         \end{tabular}
  }
- \caption{Auto prompts designed alongside with the automatically generated verbalisers for each dataset.}
+ \caption{Auto prompt-and-verbaliser designs for each dataset.}
  \label{tab:auto_prompts}
 \end{table}

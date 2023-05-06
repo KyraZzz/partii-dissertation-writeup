@@ -10,7 +10,7 @@
 
 \begin{document}
 % ----------------------------------------------------------------------
-
+%TC:ignore
 % title page
 \pagestyle{empty}
 
@@ -19,12 +19,18 @@
 \vspace*{60mm}
 \begin{center}
 	\Huge
-	\textbf{Backdoor attacks on \\ NLP prompting} \\[10mm]
-	\huge
+	\textbf{Backdoor Attacks On \\ NLP Prompting} \\[3mm]
+	\begin{figure}[!h]
+        \centering
+    \includegraphics[width=0.4\textwidth]{figures/university_shield.png}
+\end{figure}
+    \huge
 	Computer Science Tripos -- Part II \\[4mm]
-	Queens' College \\[4mm]
-	\today \\[95mm]
+    Queens' College \\[4mm]
+	\today \\ [4mm]
 \end{center}
+
+% \today \\ [95mm]
 
 \thispagestyle{empty}
 
@@ -34,14 +40,14 @@
 
 \pagenumbering{roman}
 \setcounter{page}{1}
-
+\newpage
 % declaration of originality
 \section*{Declaration}
 
  {
   \setlength{\parskip}{\bigskipamount}
 
-  I, Yulin(Kyra) Zhou of Queens' College, being a candidate for Part II of the Computer Science Tripos, hereby declare that this dissertation and the work described in it are my own work, unaided except as may be specified below, and that the dissertation does not contain material that has already been used to any substantial extent for a comparable purpose.
+  I, Yulin(Kyra) Zhou of Queens' College, being a candidate for Part II of the Computer Science Tripos, hereby declare that this dissertation and the work described in it are my own work, unaided except as may be specified below, and that the dissertation does not contain material that has already been used to any substantial extent for a comparable purpose. In preparation of this dissertation I did not use text from AI-assisted platforms generating natural language answers to user queries, including but not limited to ChatGPT.
 
   I, Yulin(Kyra) Zhou of Queens' College, am content for my dissertation to be
   made available to the students and staff of the University.
@@ -56,31 +62,31 @@
 % Acknowledgements
 \section*{Acknowledgements}
 
-I am deeply appreciative of the invaluable guidance provided by my supervisors, Aaron Zhao, Ilia Shumailov, and Robert Mullins, throughout the project. I am also grateful to Wenyang Zhou, Yuang Chen, and Will Yu for their constructive comments on this dissertation. Finally, I would like to extend my sincere thanks to Ramsey Faragher, Alastair Beresford, and Andy Rice, my Director of Studies, for their generous support over the past three years.
+I sincerely appreciate the invaluable guidance my supervisors, Aaron Zhao, Ilia Shumailov, and Robert Mullins, provided throughout the project. I am also grateful to Wenyang Zhou, Yuang Chen, and Will Yu for their constructive comments on this dissertation. Finally, I sincerely thank Ramsey Faragher, Alastair Beresford, and Andy Rice, my Director of Studies, for their generous support over the past three years.
 
 % proforma
 \chapter*{Proforma}
  {\large
   \begin{tabular}{ll}
-	  Candidate number:   & \bf ???                                      \\
-	  Project Title:      & \bf Backdoor attacks on NLP prompting        \\
+	  Candidate number:   & \bf 2365G                                      \\
+	  Project Title:      & \bf Backdoor Attacks On NLP Prompting        \\
 	  Examination:        & \bf Computer Science Tripos -- Part II, 2023 \\
-	  Word Count:         & \bf ??? \footnotemark[1]                     \\
-	  Code Line Count:    & \bf ??? \footnotemark[2]                     \\
+	  Word Count:         & \bf 12000\footnotemark[1]                     \\
+	  Code Line Count:    & \bf 5844\footnotemark[2]                     \\
 	  Project Originator: & \bf Aaron Zhao                  \\
 	  Project Supervisor: & \bf Aaron Zhao                       \\
 	  Project Co-supervisor: & \bf Ilia Shumailov, Robert Mullins \\
   \end{tabular}
  }
-\footnotetext[1]{This word count was computed}
-\footnotetext[2]{This code line count was computed}
+\footnotetext[1]{This word count was computed using \texttt{texcount (https://app.uio.no/ifi/texcount/)}. Tables are included using \texttt{\%TC:group tabular 1 1} and \texttt{\%TC:group table 0 1}.}
+\footnotetext[2]{This code line count was computed using \texttt{cloc (https://cloc.sourceforge.net/)}.}
 \stepcounter{footnote}
 
 \section*{Original Aims of the Project}
-In natural language processing, Pre-trained Language Models (PLM) based on deep neural networks are commonly fine-tuned for end-user tasks. However, limited training data poses a challenge for achieving high performance using this \emph{pre-train then fine-tune} approach. Prompt-based learning is a new paradigm that directly probes knowledge from the PLM without extensive fine-tuning to overcome this limitation. Nevertheless, advances in prompt-based learning raise security concerns, such as backdoor attacks, in which attackers create hidden model behaviour that specific input patterns can trigger. This project aims to compare the performance of different prompt-based models and assess their vulnerability to backdoor attacks with different settings.
+In natural language processing, Pre-trained Language Models (PLM) based on deep neural networks are commonly fine-tuned for end-user tasks. However, limited training data poses a challenge for achieving high performance using this \emph{pre-train then fine-tune} approach. Prompt-based learning is a new paradigm that directly probes knowledge from the PLM without extensive fine-tuning to overcome this limitation. Nevertheless, advances in prompt-based learning raise security concerns, such as backdoor attacks, in which attackers create hidden model behaviour that specific input patterns can trigger. This project compares the performance of different prompting models and assesses their vulnerability to backdoor attacks with different settings.
 
 \section*{Work Completed}
-The project successfully fulfilled the proposed criteria and extensions and further explored additional questions and ideas that were triggered by my results. I developed an extensible and robust framework to re-implement and compare three published prompting models and investigated whether automated prompting outperforms manual prompting. Then I designed several backdoor attacks with different settings to exploit the vulnerabilities of the models. Additionally, I extended my project by adding a visualisation toolkit for word embeddings and a novel invisible backdoor attack.
+The project successfully fulfilled the proposed criteria and explored additional ideas triggered by experimental results. First, I developed an extensible and robust framework to re-implement and compare three published prompting models and investigated whether automated prompting outperforms manual prompting. Then I re-implemented a backdoor attack on the prompting models to exploit the vulnerabilities of the models. The project extended the literature by incorporating multiple backdoor attacks with different design choices and a visualisation toolkit to comprehend the factors contributing to the varied effectiveness of backdoor attacks on the prompting models.
 
 \section*{Special Difficulties}
 
@@ -95,6 +101,9 @@ None.
 % ----------------------------------------------------------------------
 \newpage
 \pagenumbering{arabic}
+%TC:endignore
+%TC:group table 0 1
+%TC:group tabular 1 1
 % main chapters
 \input{sections/1_introduction.tex}
 \input{sections/2_preparation.tex}
@@ -103,15 +112,20 @@ None.
 \input{sections/5_conclusions.tex}
 
 % ----------------------------------------------------------------------
-
+%TC:ignore
 \newpage
 \pagenumbering{roman}
+\addcontentsline{toc}{chapter}{Bibliography}
 \printbibliography
 \newpage
 \appendix
-\addappheadtotoc
 \input{sections/appendix}
 
 % don't forget to append the original project proposal
-
+\resumechapters
+\pagenumbering{gobble}
+\includepdf[pages=1, pagecommand=\chapter*{Project Proposal}, offset=0 -1cm]{proposal}
+\addcontentsline{toc}{chapter}{Project Proposal} 
+\includepdf[pages=2-,pagecommand={}]{proposal}
+%TC:endignore
 \end{document}

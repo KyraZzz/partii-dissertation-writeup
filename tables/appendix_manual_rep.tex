@@ -1,0 +1,92 @@
+\begin{minipage}[c]{0.5\textwidth}
+\centering
+\adjustbox{max width=\hsize}{
+	\begin{tabular}{c | c c }
+	\toprule
+	\textbf{Model} 
+        & \textbf{SST-2} & \textbf{QNLI} \\
+	\midrule   
+	% LM-BFF
+    LM-BFF
+	& $\boldsymbol{92.7 \pm 0.9}$ 
+    & $64.5 \pm 4.2$
+    \\
+	% Manual 
+    Manual
+	& $86.9 \pm 1.6$  
+    & $\boldsymbol{74.1 \pm 1.2}$  \\
+    \toprule
+    \end{tabular}
+ }
+\captionof{table}{Compare performance (classification accuracy) of Manual \& LM-BFF with $K = 16$.}
+\label{tab:appendix-manual-reproduce}
+\end{minipage}
+\hspace{0.5em}
+\begin{minipage}[c]{0.5\textwidth}
+\centering
+\adjustbox{max width=\hsize}{
+	\begin{tabular}{c | c c }
+	\toprule
+	\textbf{Model} 
+        & \textbf{ACC} & {$\boldsymbol{\overline{\textbf{ASR}}}$} \\
+	\midrule   
+	% BToP
+    BToP
+	& $\boldsymbol{88.9 \pm 1.4}$ 
+    & $99.9 \pm 0.0$
+    \\
+	% Manual
+    $\text{Manual}_b$
+	& $88.3 \pm 0.9$  
+    & $\boldsymbol{100.0 \pm 0.0}$  \\
+    \toprule
+    \end{tabular}
+ }
+\captionof{table}{Backdoor attack performance of Manual \& BToP using \textit{SST-2} with $K=16$.}
+\label{tab:appendix-manual-backdoor-attack}
+\end{minipage}
+
+\begin{comment}
+    \begin{table*}[!ht]
+\centering
+\adjustbox{max width=\hsize}{
+	\begin{tabular}{c | c c c c }
+	\toprule
+	\textbf{Model} 
+        & \textbf{SST-2} & \textbf{QNLI} & \textbf{MNLI-MATCHED} & \textbf{MNLI-MISMATCHED}\\
+	\midrule   
+	% LM-BFF
+    LM-BFF
+	& $\boldsymbol{92.7 \pm 0.9}$ 
+    & $64.5 \pm 4.2$
+	& $\boldsymbol{70.1 \pm 3.9}$
+    & $\boldsymbol{70.5 \pm 1.9}$
+    \\
+	% Manual 
+    Manual
+	& $86.9 \pm 1.6$  
+    & $\boldsymbol{74.1 \pm 1.2}$ 
+	& $60.2 \pm 3.7$
+    & $60.2 \pm 2.7$
+	\\  
+    \cmidrule{1-5}
+    % DART
+    DART
+	& $ \boldsymbol{93.5 \pm 0.5}$ 
+    & $ \boldsymbol{66.7 \pm 3.7}$  
+	& $ \boldsymbol{67.5 \pm 2.6}$              
+	& $ / $ 
+    \\
+    % Diff
+    Diff
+    & $87.8 \pm 0.7$
+    & $59.5 \pm 3.6$
+    & $61.4 \pm 1.5$
+    & $59.4 \pm 1.1$ \\
+    \toprule
+    \end{tabular}
+ }
+ \caption{compare the performance of Manual and Diff implementations to the original LM-BFF and Dart using RoBERTa-Large with $K=16$, reporting mean Accuracy and standard deviations over five independent runs.}
+ \label{tab:appendix-manual-reproduce}
+\end{table*}
+\end{comment}

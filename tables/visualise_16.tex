@@ -21,28 +21,7 @@
   \caption{Diff $K = 16$}
   \label{fig:sst2_diff_k16_embed}
 \end{subfigure}
-% manual
-\begin{subfigure}{.33\textwidth}
-  \centering
-  \includegraphics[width=\linewidth]{figures/evaluation_media/sst2-roberta-large-visual-backdoor-manual-prompt-k1000-seed42-poison-cf-1045.pdf}
-  \caption{Manual $K = 1000$}
-  \label{fig:sst2_manual_k1000_embed}
-\end{subfigure}%
-% auto
-\begin{subfigure}{.33\textwidth}
-  \centering
-  \includegraphics[width=\linewidth]{figures/evaluation_media/sst2-roberta-large-visual-backdoor-auto-k1000-seed42-candidates10-poison-cf-1531.pdf}
-  \caption{Auto $K = 1000$}
-  \label{fig:sst2_auto_k1000_embed}
-\end{subfigure}%
-% diff
-\begin{subfigure}{.33\textwidth}
-  \centering
-  \includegraphics[width=\linewidth]{figures/evaluation_media/sst2-roberta-large-visual-backdoor-diff-prompt-k1000-seed42-poison-cf-1648.pdf}
-  \caption{Diff $K = 1000$}
-  \label{fig:sst2_diff_k1000_embed}
-\end{subfigure}%
 \vspace{1em}
-\caption{For the \textit{SST2} dataset with $K \in \{16, 100\}$, the $<$\textit{mask}$>$ token contextualised word embeddings $c_{<\textit{mask}>}$ from different prompting models are visualised. Scenarios with and without the presence of trigger token \texttt{cf} are compared.}
+\caption{For the \textit{SST2} dataset with $K = 16, 100$, the $<$\textit{mask}$>$ token contextualised word embeddings $c_{<\textit{mask}>}$ from different prompting models are visualised. Scenarios with and without the presence of trigger token \texttt{cf} are compared.}
 \label{fig:visualise_16}
 \end{figure*}

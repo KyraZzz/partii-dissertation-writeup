@@ -1,8 +1,155 @@
-\chapter{Training \& Testing}
-\section{Fine-tuning implementation details} \label{sec:appendix-finetune}
+\chapter{Additional Implementation Details}
+\section{PyTorch Hook Functions}
+PyTorch hook functions are used during model training. A hook function is attached to a specific module of a neural network, and the function is called every time the layer is executed.
+
+Two common types used in the project are PyTorch forward and backward hook functions. \Cref{alg:appendix-auto-hook} implements the \texttt{GradientOnBackwardHook} class, which would register a PyTorch backward hook function on any module using the \texttt{register\_backward\_hook} method. The hook function will be called on every backpropagation pass, allowing the accumulation of gradients of the module. \Cref{alg:appendix-auto-forward-hook} gives the implementation details of a PyTorch forward hook. Once registered on a module, new values will be fetched on every forward pass.
+
+\begin{algorithm}
+\caption{Auto Prompting PyTorch Backward Hook} \label{alg:appendix-auto-hook}
+\begin{algorithmic}[1]
+\small
+\Class{GradientOnBackwardHook}
+\Procedure{GradientOnBackwardHook}{module}
+\State $\nabla f \gets \text{None}$
+{\color{mylightgrey}\Comment{\textit{local variable for tracking the gradient $\nabla \log \Pr(\textbf{y}|\textbf{X}';\theta)$}}}
+\State $\text{module}.\Call{\text{register\_full\_backward\_hook}}{\text{hook}}$ {\color{mylightgrey}\Comment{\textit{register a backward hook function}}}
+\EndProcedure
+
+\Procedure{hook}{\text{module}, \text{grad\_in}, \text{grad\_out}}
+  \State $\nabla f \gets \text{grad\_out}$ {\color{mylightgrey}\Comment{\textit{called on every backpropagation pass, store newest $\nabla \log \Pr(\textbf{y}|\textbf{X}';\theta)$}}}
+\EndProcedure
+\Procedure{get}{}
+  \State $\textbf{return } \nabla f$ {\color{mylightgrey}\Comment{\textit{fetch newest $\nabla \log \Pr(\textbf{y}|\textbf{X}';\theta)$}}}
+\EndProcedure
+\EndClass
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}
+\caption{Auto Prompting PyTorch Forward Hook} \label{alg:appendix-auto-forward-hook}
+\begin{algorithmic}[1]
+\small
+\Class{OutputOnForwardHook}
+
+\Procedure{OutputOnForwardHook}{module}
+\State $\text{output} \gets \text{None}$
+{\color{mylightgrey}\Comment{\textit{local variable for tracking the embeddings $\textbf{w}_\text{out}$}}}
+
+\State $\text{module}.\Call{\text{register\_forward\_hook}}{\text{hook}}$  
+{\color{mylightgrey}\Comment{\textit{register a forward hook function}}}
+\EndProcedure
+
+\Procedure{hook}{\text{module}, \text{input}, \text{output}}
+  \State $\text{output} \gets \text{output}$ 
+  {\color{mylightgrey}\Comment{\textit{called on every forward pass, store newest embeddings $\textbf{w}_\text{out}$}}}
+\EndProcedure
+\Procedure{get}{}
+  \State $\textbf{return } \text{output}$ 
+  {\color{mylightgrey}\Comment{\textit{fetch newest embeddings $\textbf{w}_\text{out}$}}}
+\EndProcedure
+\EndClass
+\end{algorithmic}
+\end{algorithm}
+
+\section{Implement Fine-tuning} \label{sec:appendix-finetune}
+\Cref{alg:fine-tune-forward} presents the implementation details of fine-tuning. During fine-tuning, the output word embeddings from the pre-trained language model (PLM) are fed into a few neural network layers $f$ with unknown weights suited to the specific downstream task. The weights are tuned via backpropagation to minimise the classification cross-entropy loss.
+
+\begin{algorithm}
+\caption{Fine-tuning Forward Function}\label{alg:fine-tune-forward}
+
+\begin{algorithmic}[1] 
+\small
+\Require $\boldsymbol{:}$ \newline $m = \text{the pre-trained RoBERTa-Large model}$ \newline $f = \text{extra linear layers to serve as the final classifier}$
+\Ensure $\boldsymbol{:}$ \newline $\text{input\_ids} = \text{the input text batch }\mathbf{X}'$\text{ in numeric format} \newline
+    $\text{attention\_masks} = \text{the input text batch }\mathbf{X}' $ \text{ in binary format}  \newline
+    $\mathbf{y} = \text{correct labels of the input text batch }\mathbf{X}'$ 
+\vspace{0.3em}
+\hrule
+\vspace{0.3em}
+\Function{forward}{\text{input\_ids}, \text{attention\_masks}, $\mathbf{y}$}
+\State $m_\text{out} = m.\Call{\text{forward}}{\text{input\_ids}, \text{attention\_masks}}$
+\State $\textbf{O} \gets \text{get output word embeddings from $m_\text{out}$}$  
+ {\color{mylightgrey}\Comment{\textit{embeddings before the classifier layer}}}
+\State $f_\text{out} = f.\Call{\text{forward}}{\textbf{O}}$
+{\color{mylightgrey}\Comment{\textit{pass embeddings into the new classifier}}}
+\State $\Pr_{\mathcal{Y}} \gets \text{softmax($f_\text{out}$)}$
+{\color{mylightgrey}\Comment{\textit{compute the probability of each class label}}}
+\State $\hat{\mathbf{y}} \gets \argmax_{y \in \mathcal{Y}} \Pr_{\mathcal{Y}}$
+{\color{mylightgrey}\Comment{\textit{get the class label with highest likelihood in $\Pr_{\mathcal{Y}}$}}}
+\State $\mathcal{L}_C \gets \text{cross-entropy}(\hat{\mathbf{y}},\mathbf{y})$
+{\color{mylightgrey}\Comment{\textit{compute the loss to measure classification performance}}}
+\State \textbf{return $\mathcal{L}_C, \hat{\mathbf{y}}$}
+{\color{mylightgrey}\Comment{\textit{return the loss and the predicted label}}}
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+
+\begin{comment}
+\begin{figure}[!ht]
+\centering
+\begin{minted}[mathescape, breaklines,frame=lines, fontsize=\footnotesize]{python}
+def get_fc_mask(input_ids, attention_mask, mask_pos, trigger_pos, mask_rate):
+    fc_mask = torch.ones_like(input_ids, dtype=torch.long) * -inf
+    for idx in range(input_ids.size(0)): # batch_size = input_ids.size(0)
+        pos_list = torch.cat((trigger_pos[idx], mask_pos[idx]))
+        maskable_pos = torch.argwhere(attention_mask[idx]).squeeze()
+        mask = torch.ones_like(maskable_pos, dtype=torch.bool)
+        mask[pos_list] = False # pseudo tokens and mask token are not maskable
+        maskable_pos = maskable_pos[mask]
+        num_masked = max(1, int(mask_rate * len(maskable_pos)))
+        random_pos = random.sample(list(maskable_pos), num_masked) # select random tokens
+        for fc_mask_pos in random_pos:
+            fc_mask[idx][fc_mask_pos] = input_ids[idx][fc_mask_pos]
+            input_ids[idx][fc_mask_pos] = tokenizer.mask_token_id
+    return fc_mask, input_ids
+\end{minted}
+\caption{A function masks random tokens in the input text to create fluency constraint object targets. It returns the masked embeddings and updated \texttt{input\_ids}.}
+\label{code:diff-2}
+\end{figure}
+\end{comment}
+
+\section{Target Embeddings In Backdoor Attacks}
+The implementation details for constructing target embeddings for any number of trigger tokens are presented in \Cref{code:embed}. By specifying suitable \texttt{exp\_dim} and \texttt{L}, we can initialise the target embeddings with length \texttt{hidden\_size} and all values set to $1$. Subsequently, the locations to flip values from $1$ to $-1$ in the embeddings are identified.
+
+\begin{figure}[!ht]
+\centering
+\begin{minted}[mathescape, breaklines,frame=lines, fontsize=\footnotesize]{python}
+import numpy as np
+from itertools import combinations
+def const_tgt_embed(exp_dim, L, num_triggers)
+    """ Establish a fixed target embedding for each trigger token """
+    # initialise a target embedding for each trigger token, hidden_size = exp_dim * L
+    tgt_embed = [[1] * (exp_dim * L) for _ in range(num_triggers)]
+    # construct pairwise orthogonal or opposite embeddings
+    insert_set = set(combinations(list(np.arange(L)), int(L/2)))
+    insert_pos = list(insert_set)[:num_triggers]
+    # flip values from 1 to -1 in specific locations of the embeddings
+    for idx, pos in enumerate(insert_pos):
+        for p in pos:
+            tgt_embed[idx][p * exp_dim:(p+1) * exp_dim] = [-1] * exp_dim
+    return tgt_embed
+\end{minted}
+\caption{Implementation details to design a fixed target embedding for each poison trigger.}\label{code:embed}
+\end{figure}
+
+\section{Auto Prompt-Verbaliser Designs}
+\label{sec:appendix-auto-prompt-designs}
+\input{tables/auto_prompt}
+
 \section{Hyper-parameters}
 \input{tables/hyper_param}
-\input{tables/auto_prompt}
-\chapter{Reproduce literature results} \label{sec:reprod_lit_res}
-\chapter{Mask Token visualisation} \label{sec:appendix-visual}
+
+\chapter{Additional Experimental Results}
+\section{Mask Token Visualisations} \label{sec:appendix-visual}
 \input{tables/visualise_word_embedding}
+\section{Reproduce Literature Results} \label{sec:reprod_lit_res}
+AutoPrompt \cite{shin2020autoprompt} trained the model on the full dataset and did not consider few-shot learning scenarios. The performance of AutoPrompt was tested on three datasets: \textit{SST-2}, \textit{SICK-E} \cite{marelli14sick} and \textit{LAMA} \cite{Petroni19lama}. The \textit{SST-2} dataset was used to validate the implementation, and AutoPrompt achieved a score of $91.4$ using RoBERTa-Large model on the full dataset. In contrast, my implementation (Auto) achieved a score of $92.5 \pm 0.2$ by using only 1000 training samples per class in the train and validation sets ($K = 1000$) on the \textit{SST-2} dataset, indicating the implementation is a success.
+
+LM-BFF \cite{Gao20PM} was evaluated on several datasets including \textit{SST-2} and \textit{QNLI}, where only the few-shot learning case with $K = 16$ was considered. Due to the limited training samples, there is a relatively large standard deviation, as shown in \Cref{tab:appendix-manual-reproduce}. Manual outperforms LM-BFF in QNLI but underperforms in SST-2. The discrepancy in verbaliser choices could be the reason. LM-BFF used \{\texttt{terrible} $\mapsto$ 0, \texttt{great} $\mapsto$ 1\} and in Manual, we used the \{\texttt{bad} $\mapsto$ 0, \texttt{good} $\mapsto$ 1\} verbaliser, as outlined in \Cref{sec:eval-manul-prompt}.  
+
+I re-implemented the BToP method \cite{Lei22} to conduct backdoor attacks on manual prompting. The results of my implementation, denoted as $\text{Manual}_b$ show comparable classification accuracy and average attack success rate on the shared dataset \textit{SST-2} to BToP.
+
+\input{tables/appendix_manual_rep}
+\section{Backdoor Attack Performance} \label{sec:appendix-backdoor-perform}
+\input{tables/appendix_backdoor}
+\newpage

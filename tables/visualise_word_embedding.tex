@@ -378,6 +378,34 @@
 \end{figure*}
 \end{comment}
 
+%visualise SST2 K=1000 
+\begin{figure*}[!ht]
+% manual
+\begin{subfigure}{.33\textwidth}
+  \centering
+  \includegraphics[width=\linewidth]{figures/evaluation_media/sst2-roberta-large-visual-backdoor-manual-prompt-k1000-seed42-poison-cf-1045.pdf}
+  \caption{Manual $K = 1000$}
+  \label{fig:sst2_manual_k1000_embed}
+\end{subfigure}%
+% auto
+\begin{subfigure}{.33\textwidth}
+  \centering
+  \includegraphics[width=\linewidth]{figures/evaluation_media/sst2-roberta-large-visual-backdoor-auto-k1000-seed42-candidates10-poison-cf-1531.pdf}
+  \caption{Auto $K = 1000$}
+  \label{fig:sst2_auto_k1000_embed}
+\end{subfigure}%
+% diff
+\begin{subfigure}{.33\textwidth}
+  \centering
+  \includegraphics[width=\linewidth]{figures/evaluation_media/sst2-roberta-large-visual-backdoor-diff-prompt-k1000-seed42-poison-cf-1648.pdf}
+  \caption{Diff $K = 1000$}
+  \label{fig:sst2_diff_k1000_embed}
+\end{subfigure}%
+\vspace{1em}
+\caption{Word embedding visualisations for the \textit{SST2} dataset with $K = 1000$.}
+\label{fig:visualise_1000}
+\end{figure*}
+
 % visualise K=16 word embeddings
 \begin{figure*}[!ht]
 % manual
@@ -507,6 +535,6 @@
   \label{fig:tweets_diff_k16_embed_extra}
 \end{subfigure}%
 \vspace{1.0em}
-\caption{Visualise word embeddings}
+\caption{Word embedding visualisations with $K = 16$ for all datasets.}
 \label{fig:embeddings_all_16}
 \end{figure*}

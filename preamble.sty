@@ -88,3 +88,17 @@
 
 % appendix
 \usepackage[toc]{appendix}
+
+% append proposal
+\usepackage{pdfpages}
+\makeatletter
+\usepackage{etoolbox}
+\newcounter{savedchapter}% for remembering the last chapter number
+\preto\appendix{\setcounter{savedchapter}{\arabic{chapter}}}% remembering!
+\newcommand\resumechapters{% the \appendix command with some tweaks
+  \setcounter{chapter}{\arabic{savedchapter}}% restore chapter number
+  \setcounter{section}{0}% reset section counter
+  \gdef\@chapapp{\chaptername}% reset chapter name
+  \gdef\thechapter{\@arabic\c@chapter}% make chapter numbers arabic
+}
+\makeatother

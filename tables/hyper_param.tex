@@ -1,9 +1,9 @@
 \begin{table*}[!ht]
 \centering
 \adjustbox{scale=.7}{
-	\begin{tabular}{c | c | c c c}
+	\begin{tabular}{c | c | c c c | c | c | c c c}
 	\toprule
-	Dataset & Model & Batch size & Learning rate & Weight decay    \\
+	\textbf{Dataset} & \textbf{Model} & \textbf{Batch Size} & \textbf{$\boldsymbol{\eta}$} & \textbf{$\boldsymbol{w_d}$} & \textbf{Dataset} & \textbf{Model} & \textbf{Batch Size} & \textbf{$\boldsymbol{\eta}$} & \textbf{$\boldsymbol{w_d}$}   \\
 	\midrule
         % SST2
         % Auto
@@ -11,36 +11,39 @@
         & Auto
         &  8
         & 1e-5
-        & 0.01 \\
-
-        % Diff 
-        & Diff
-        &  8
-        & 1e-5
-        & 0.01 \\
-
-        % Manual
-        & Manual
-        &  4
-        & 2e-5
-        & 0.01 \\
-
-        \midrule
+        & 0.01 
+        
         % QNLI 
         % Auto
-        \multirow{3}{*}{QNLI} 
+        & \multirow{3}{*}{QNLI} 
         & Auto
         &  4 
         & 2e-5
         & 0.1 \\
 
+        % SST2
         % Diff 
+        & Diff
+        &  8
+        & 1e-5
+        & 0.01 
+        % QNLI
+        % Diff 
+        &
         & Diff
         &  4
         & 1e-5
         & 0.1 \\
 
+        % SST2
         % Manual
+        & Manual
+        &  4
+        & 2e-5
+        & 0.01 
+        % QNLI
+        % Manual
+        &
         & Manual
         &  4
         & 2e-5
@@ -53,36 +56,38 @@
         & Auto
         &  4 
         & 2e-5
-        & 0.01 \\
-
-        % Diff 
-        & Diff
-        &  4
-        & 1e-5
-        & 0.01 \\
-
-        % Manual
-        & Manual
-        &  4
-        & 2e-5
-        & 0.01 \\
-
-        \midrule
+        & 0.01 
         % MNLI-MISMATCHED 
         % Auto
-        \multirow{3}{*}{MNLI-MISMATCHED} 
+        & \multirow{3}{*}{MNLI-MISMATCHED} 
         & Auto
         &  4 
         & 2e-5
         & 0.01 \\
-
+        
+        % MNLI-MATCHED
         % Diff 
+        & Diff
+        &  4
+        & 1e-5
+        & 0.01 
+        % MNLI-MISMATCHED
+        % Diff 
+        &
         & Diff
         &  8
         & 1e-5
         & 0.01 \\
 
+        % MNLI-MATCHED
         % Manual
+        & Manual
+        &  4
+        & 2e-5
+        & 0.01 
+        % MNLI-MISMATCHED
+        % Manual
+        &
         & Manual
         &  4
         & 2e-5
@@ -95,44 +100,47 @@
         & Auto
         &  8 
         & 1e-5
-        & 0.01 \\
-
-        % Diff 
-        & Diff
-        &  8
-        & 2e-5
-        & 0.0 \\
-
-        % Manual
-        & Manual
-        &  8
-        & 2e-5
-        & 0.05 \\
-
-        \midrule
+        & 0.01 
         % TWEETS-HATE-OFFENSIVE 
         % Auto
-        \multirow{3}{*}{TWEETS-HATE-OFFENSIVE } 
+        & \multirow{3}{*}{TWEETS-HATE-OFFENSIVE } 
         & Auto
         &  8 
         & 2e-5
         & 0.1 \\
 
+        % ENRON-SPAM
         % Diff 
+        & Diff
+        &  8
+        & 2e-5
+        & 0.0
+        % TWEETS-HATE-OFFENSIVE
+        % Diff 
+        &
         & Diff
         &  8
         & 2e-5
         & 0.0 \\
 
+        % ENRON-SPAM
         % Manual
+        & Manual
+        &  8
+        & 2e-5
+        & 0.05
+
+        % TWEETS-HATE-OFFENSIVE
+        % Manual
+        &
         & Manual
         &  8
         & 2e-5
         & 0.1 \\
 
-        \bottomrule
+        \toprule
         \end{tabular}
  }
- \caption{Details of the optimal hyper-parameters including batch size, learning rate and weight decay values for each set of experiments with the same dataset and prompting model.}
+ \caption{Details of the selected hyper-parameters, including batch size, learning rate $\eta$ and weight decay $w_d$ for each set of experiments with the same dataset and prompting model.}
  \label{tab:hyper_param}
 \end{table*}
